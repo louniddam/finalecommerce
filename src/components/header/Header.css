@@ -1,0 +1,19 @@
+.nav-menu, .nav-menu ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li a {
+    text-decoration: none;
+}
+
+h1 a {
+    text-decoration: none;
+}
