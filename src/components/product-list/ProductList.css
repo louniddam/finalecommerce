@@ -1,0 +1,34 @@
+.products-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.products-cards{
+    border: 1px solid black;
+    height: 340px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 15px;
+    padding: 0px 10px 15px;
+}
+
+.products-cards img {
+    height: auto;
+    width: 90%;
+}
+
+.products-cards img:hover {
+    height: auto;
+    width: 91%;
+}
+
+.products-cards:hover span{
+    color: blue;
+}
+
+

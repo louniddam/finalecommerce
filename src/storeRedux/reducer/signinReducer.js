@@ -11,6 +11,12 @@ const signinReducer = (state = initialState, action) => {
                 userToken: action.payload.token,
                 userInfo: action.payload.tokenDecoded
             }
+        case "ADMIN_CONNECTED":
+            return{
+                ...state,
+                userToken: action.payload.token,
+                userInfo: action.payload.tokenDecoded                
+            }
         default:
             return state
     }

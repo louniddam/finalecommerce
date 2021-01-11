@@ -10,7 +10,6 @@ import { useHistory } from "react-router-dom";
 const Signin = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [userToken, setUserToken] = useState('')
     const [incorrect, setIncorrect] = useState()
     const history = useHistory()
 
@@ -27,7 +26,6 @@ const Signin = (props) => {
             } else if (response.data.auth){
                 let tokenDecoded = jwt_decode(response.data.token)
                 setIncorrect(false)
-                console.log("decoded",tokenDecoded);
                 props.signinUserAction({tokenDecoded, token: response.data.token})
                 history.push('/')
             }
@@ -42,7 +40,7 @@ const Signin = (props) => {
         <>
         <Header />
         <div className="signin-container">
-            <form method="post" onSubmit={handleSubmit}>
+            <form  onSubmit={handleSubmit}>
                 <div className="signin-email">
                     <label>Enter your email</label>
                     <input type="email" name="email" id="email" required onChange={e => setEmail(e.target.value)}/>

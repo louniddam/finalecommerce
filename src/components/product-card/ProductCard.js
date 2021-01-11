@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Home = () => {
+const ProductCard = () => {
     
     return(
         <>
         </>
     )
 }
+
+export default ProductCard

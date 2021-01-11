@@ -6,7 +6,10 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Signin from "../src/components/sign-in/Signin";
-import Signup from "../src/components/sign-up/Signup"
+import Signup from "../src/components/sign-up/Signup";
+import AdminAuth from "../src/components/admin-auth/SigninAdmin";
+import ProductForm from "../src/components/product-form/ProductForm";
+import ProductList from "../src/components/product-list/ProductList"
 //STRORE + PERSISTANT
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -14,6 +17,8 @@ import { createStore } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
 import allReducers from "../src/storeRedux/reducer/index";
+require("dotenv").config();
+
 
 const persistConfig = {
   key: "root",
@@ -37,6 +42,9 @@ ReactDOM.render(
           <Route exact path="/" component={App} />
           <Route path="/sign-in" component={Signin} />
           <Route path="/sign-up" component={Signup} />
+          <Route path={process.env.REACT_APP_ROUTE_AUTH} component={AdminAuth} />
+          <Route path="/add-product" component={ProductForm} />
+          <Route path="/allproducts" component={ProductList}/>
         </Switch>
       </Router>
      {/* </PersistGate> */}

@@ -1,7 +1,10 @@
 const express = require("express")
 const app = express()
+const router = express.Router()
 const port = 8000
 const cors = require("cors")
+// const con = require('./database/database')
+// require ('./routes/userRoutes')(router, con)
 
 app.use(express.urlencoded({
     extended: true,

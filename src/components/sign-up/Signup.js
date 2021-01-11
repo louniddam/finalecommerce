@@ -40,30 +40,30 @@ const Signup = () => {
         <>
         <Header />
         <div className="signup-container">
-            <h1>Create your User</h1>
+            <h1>Créer un compte</h1>
             <p>{message}</p>
             <form method="post" onSubmit={handleSubmit}>
                 <div>
-                    <label>Choose a pseudo</label>
+                    <label>Pseudo:</label>
                     <input type="text" id="pseudo" name="pseudo" required onChange={e => setPseudo(e.target.value)}/>
                 </div>
                 <div>
-                    <label>Enter your email</label>
+                    <label>Email:</label>
                     <input type="email" id="signEmail" name="email" required onChange={e => setEmail(e.target.value)}/>
                 </div>
                 <div>
-                    <label>Choose a password</label>
+                    <label>Mot de passe:</label>
                     <input type="password" id="signPwd" name="password" required onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div>
-                    <label>Confirm your password</label>
+                    <label>Confirmation:</label>
                     <input type="password" id="confirmPwd" name="confirm" required onChange={e => setConfirm(e.target.value)}/>
                 </div>
                 <div>
-                    <label>Add an avatar</label>
+                    <label>Ajouter un avatar</label>
                     <input type="text" id="avatar" name="avatar" required onChange={e => setImg(e.target.value)}/>
                 </div>
-                <button onClick={formSubmit}>create user</button>
+                <button onClick={formSubmit}>créer</button>
             </form>
         </div>
     </>
