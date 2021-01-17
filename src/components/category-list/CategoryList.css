@@ -1,0 +1,30 @@
+#categories-container{
+    background-color: rgb(219, 219, 219);
+    width: 100%;
+    height: 300px;
+    display: flex;
+    /* justify-content: space-around;
+    align-items: center; */
+    border: 1px solid black;
+    flex-wrap: wrap ;
+}
+
+#categories{
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex: 0 0 13.333333%;  */
+    width: 20%;
+    margin-left:20px;
+}
+
+
+
+
+#categories img{
+    width: 45%;
+    height: auto;
+    border: 1px dotted white;
+    cursor: pointer;
+}

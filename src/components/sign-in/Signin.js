@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import signinUserAction from '../../storeRedux/action/signinUserAction'
 import Header from '../header/Header'
 import { useHistory } from "react-router-dom";
+import '../sign-in/Signin.css'
 // import { response } from 'express'
 
 const Signin = (props) => {
@@ -40,17 +41,18 @@ const Signin = (props) => {
         <>
         <Header />
         <div className="signin-container">
+            <h1>Connexion</h1>
             <form  onSubmit={handleSubmit}>
                 <div className="signin-email">
-                    <label>Enter your email</label>
+                    <label>Votre email</label>
                     <input type="email" name="email" id="email" required onChange={e => setEmail(e.target.value)}/>
                 </div>
                 <div className="signin-pwd">
-                    <label>Enter your password</label>
+                    <label>Votre mot de passe</label>
                     <input type="password" name="password" id="password" required onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div className="signin-btn">
-                    <button onClick={formSubmit}>sign-in</button>
+                    <button onClick={formSubmit}>connexion</button>
                 </div>
             </form>
         </div>

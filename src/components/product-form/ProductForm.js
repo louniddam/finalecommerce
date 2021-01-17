@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Header from '../header/Header'
+import '../product-form/ProductForm.css'
 
 async function fetchCategories(setCategory_data){
     const result = await axios.get(`http://localhost:8000/categories`)
@@ -68,41 +69,46 @@ const ProductForm = () => {
         <>
         <Header />
         <div className="container-form-product">
-            <form onSubmit={handleFormSubmit}>
-                <div>
-                    <label>Nom du produit:</label>
-                    <input type="text" name="prod-name" id="prod-name" onChange={e => setName(e.target.value)}/>
-                </div>
-                <div>
-                    <label>Image du produit:</label>
-                    <input type="text" name="prod-img" id="prod-img" onChange={e => setImage(e.target.value)}/>
-                </div>
-                <div>
-                    <label>Titre de la description:</label>
-                    <input type="text" name="prod-title" id="prod-title" onChange={e => setTitle(e.target.value)}/>
-                </div>
-                <div>
-                    <label>Description:</label>
-                    <textarea  rows="5" cols="33" onChange={e => setDescription(e.target.value)}></textarea>
-                </div>
-                <div>
-                    <label>Categorie:</label>
-                    <select name="caegorie" id="categorie" onChange={e => setCategory(e.target.value)}>
-                    <option value="">--Please choose an option--</option>
-                        {categories}
-                    </select>
-                </div>
-                <div>
-                    <label>Prix:</label>
-                    <input type="number" name="prod-price" id="prod-price"  min="1"
-                    step="0.1" onChange={e => setPrice(e.target.value)}/>
-                </div>
-                <div>
-                    <label>Quantité:</label>
-                    <input type="number" name="prod-qty" id="ptod-qty" onChange={e => setQty(e.target.value)}/>
-                </div>
-                <button onClick={formSubmit}>ajouter</button>
-            </form>
+            <h1>Ajouter un produit</h1>
+            <div className="sub">
+                <form onSubmit={handleFormSubmit}>
+                    <div>
+                        <label>Nom du produit:</label>
+                        <input type="text" name="prod-name" id="prod-name" onChange={e => setName(e.target.value)}/>
+                    </div>
+                    <div>
+                        <label>Image du produit:</label>
+                        <input type="text" name="prod-img" id="prod-img" onChange={e => setImage(e.target.value)}/>
+                    </div>
+                    <div>
+                        <label>Titre de la description:</label>
+                        <input type="text" name="prod-title" id="prod-title" onChange={e => setTitle(e.target.value)}/>
+                    </div>
+                    <div>
+                        <label>Description:</label>
+                        <textarea  rows="5" cols="33" onChange={e => setDescription(e.target.value)}></textarea>
+                    </div>
+                    <div>
+                        <label>Categorie:</label>
+                        <select name="caegorie" id="categorie" onChange={e => setCategory(e.target.value)}>
+                        <option value="">--Please choose an option--</option>
+                            {categories}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Prix:</label>
+                        <input type="number" name="prod-price" id="prod-price"  min="1"
+                        step="0.1" onChange={e => setPrice(e.target.value)}/>
+                    </div>
+                    <div>
+                        <label>Quantité:</label>
+                        <input type="number" name="prod-qty" id="ptod-qty" onChange={e => setQty(e.target.value)}/>
+                    </div>
+                    <div>
+                        <button onClick={formSubmit}>ajouter</button>
+                    </div>
+                </form>
+            </div>
         </div>
         </>
     )

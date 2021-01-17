@@ -3,32 +3,53 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
+    background: url('../../asset/fond-img.jpg') repeat;
+
 }
 
 .products-cards{
+    font-family: 'Amatic SC', cursive;
     border: 1px solid black;
-    height: 340px;
-    width: 200px;
+    height: 40vh;
     display: flex;
+    flex: 0 0 23.333333%; /*media query remettre en 33%*/
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     border-radius: 15px;
     padding: 0px 10px 15px;
+    margin-bottom: 1%;
+    box-shadow: 0px 0px 10px #999;
+    background-color: white;
+    font-size: 25px;
 }
 
 .products-cards img {
     height: auto;
-    width: 90%;
+    width: 45%;
 }
 
 .products-cards img:hover {
     height: auto;
-    width: 91%;
+    width: 50%;
 }
 
 .products-cards:hover span{
-    color: blue;
+    color: rgb(63, 63, 202);
 }
 
+.btn-view-more{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px;
+}
 
+.btn-view-more:hover{
+color: white;
+background-color: rgb(63, 63, 202);
+transition: 0.6s;
+border: 1px solid rgb(63, 63, 202);
+font-size: 14px;
+}

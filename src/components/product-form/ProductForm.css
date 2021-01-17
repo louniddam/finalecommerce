@@ -1,0 +1,83 @@
+.container-form-product{
+    background: url('../../asset/fond-img.jpg') repeat;
+    opacity:0.75;
+    height: 120vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-form-product h1{
+    font-family: 'Amatic SC', cursive;
+    font-size: 3em;
+}
+
+.container-form-product form{
+    border: 1px solid black;
+    background-color: white;
+    height: auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px #999;
+    padding: 10px;
+}
+
+.container-form-product form div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+}
+
+.container-form-product form textarea{
+    outline: none;
+    resize: none;
+    border-radius: 10px;
+}
+
+.container-form-product form div input {
+    border-radius: 5px;
+    width: 60%;
+}
+
+.container-form-product form div label {
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.container-form-product form div button{
+    background-color: white;
+    border: 1px solid black;
+    font-family: 'Amatic SC', cursive;
+    height: auto;
+    width: 40%;
+    font-size: 1.3em;
+    margin-top: 15px;
+}
+
+.container-form-product form div button:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    font-family: 'Amatic SC', cursive;
+    height: auto;
+    width: 45%;
+    font-size: 1.5em;
+    transition: 0.6s;
+}

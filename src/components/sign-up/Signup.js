@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import Header from '../header/Header'
+import '../sign-up/Signup.css'
 
 const Signup = () => {
     const [pseudo, setPseudo] = useState('')
@@ -63,7 +64,9 @@ const Signup = () => {
                     <label>Ajouter un avatar</label>
                     <input type="text" id="avatar" name="avatar" required onChange={e => setImg(e.target.value)}/>
                 </div>
-                <button onClick={formSubmit}>créer</button>
+                <div>
+                    <button onClick={formSubmit}>créer</button>
+                </div>
             </form>
         </div>
     </>

@@ -1,19 +1,44 @@
+.header-container{
+    background: url('../../asset/fond-flou.jpg') repeat;
+}
+
 .nav-menu, .nav-menu ul{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    border: 1px solid black;
+    list-style: none;
+    text-decoration: none;
+}
+
+.nav-menu h1{
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2em;
+}
+
+.nav-menu h1 a{
+    color: rgb(255, 255, 255);
 }
 
 ul {
+    font-family: 'Permanent Marker', cursive;
     list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 30%;
 }
 
 ul li a {
     text-decoration: none;
+    color: rgb(255, 255, 255);
 }
 
 h1 a {
+    text-decoration: none;
+}
+
+a{
     text-decoration: none;
 }

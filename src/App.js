@@ -1,10 +1,9 @@
 import './App.css';
-import Header from './components/header/Header.js'
-
+import Home from '../src/components/home/Home'
 function App(props) {
   return (
     <div className="App">
-      <Header/>
+      <Home/>
     </div>
   );
 }

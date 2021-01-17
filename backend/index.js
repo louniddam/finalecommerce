@@ -1,10 +1,9 @@
 const express = require("express")
 const app = express()
-const router = express.Router()
+// const router = express.Router()
 const port = 8000
 const cors = require("cors")
-// const con = require('./database/database')
-// require ('./routes/userRoutes')(router, con)
+const con = require('./database/database')
 
 app.use(express.urlencoded({
     extended: true,
@@ -27,7 +26,13 @@ app.use((req, res, next)=>{
     next();
 });
 
-app.use("/", require("./routes/routes"))
+require('./routes/userRoutes')(app, con)
+require('./routes/productRoutes')(app, con)
+require('./routes/adminRoutes')(app, con)
+
+
+// app.use("/", require("./routes/routes"))
+
 
 app.listen(port, ()=>{
     console.log(`http://localhost:${port}/`);
