@@ -42,3 +42,9 @@ h1 a {
 a{
     text-decoration: none;
 }
+
+.nav-menu a{
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.3em;
+    color: rgb(255, 255, 255);
+}

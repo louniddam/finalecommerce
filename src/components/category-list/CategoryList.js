@@ -14,7 +14,6 @@ const CategoryList = () => {
         fetchCategories(setCategories)
     }, [])
 
-    console.log(categories);
     let categoriesArray = categories.map(categories => {
         return(
             <div id="categories"key={categories.idcategory}>

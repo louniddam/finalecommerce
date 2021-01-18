@@ -64,3 +64,13 @@
     font-size: 1.3em;
     transition: 0.6s;
 }
+
+.error-message{
+    color: red;
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.5em;
+}
+
+.is-wrong{
+    border: 1px solid red;
+}

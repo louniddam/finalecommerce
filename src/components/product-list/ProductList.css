@@ -33,6 +33,7 @@
 .products-cards img:hover {
     height: auto;
     width: 50%;
+    transition: 0.6s;
 }
 
 .products-cards:hover span{

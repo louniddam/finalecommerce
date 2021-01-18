@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 // import signinUserAction from '../../storeRedux/action/signinUserAction'
 // import signinAdminAction from '../../storeRedux/action/signinAdminAction'
+import Auth from '../auth-routing/Auth'
 import "../header/Header.css"
+import CategoryList from '../category-list/CategoryList'
 
 const Header = (props) => {
 
@@ -11,8 +13,6 @@ const Header = (props) => {
     const logOut = () => {
         localStorage.clear()
     }
-
-    console.log(props);
 
     return (
         <div className="header-container">
@@ -42,6 +42,8 @@ const Header = (props) => {
                 </ul>
             </nav> 
             }
+            <CategoryList />
+            <Auth/>
         </div>
     );
 };
