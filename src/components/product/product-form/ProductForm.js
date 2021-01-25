@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import Header from '../header/Header'
+import Header from '../../global/header/Header'
 import '../product-form/ProductForm.css'
 
 async function fetchCategories(setCategory_data){

@@ -1,5 +1,5 @@
 .container-form-product{
-    background: url('../../asset/fond-img.jpg') repeat;
+    background: url('../../../asset/fond-img.jpg') repeat;
     opacity:0.75;
     height: 120vh;
     display: flex;

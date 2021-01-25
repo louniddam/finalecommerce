@@ -1,0 +1,82 @@
+.solo-product{
+    background: url('../../../asset/fond-img.jpg') repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space space-around;
+    align-items: center;
+}
+
+.space{
+    height: 20px;
+    background: url('../../../asset/fond-img.jpg') repeat;
+}
+
+.solo-product-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space space-around;
+    align-items: center;
+    background-color: white;
+    border: 1px solid black;
+    width: 70%;
+    height: 70%;
+    box-shadow: 0px 0px 10px #999;
+    border-radius: 15px;
+    margin-top: 15px;
+    font-family: sans-serif;
+}
+
+.solo-product-container span{
+    font-family: 'Amatic SC', cursive !important;
+    font-size: 1.3em;
+}
+
+.solo-product-container img {
+    height: auto;
+    width: 40%;
+}
+
+.data-product{
+    display: flex;
+    flex-direction: column;
+    justify-content: space space-around;
+    align-items: center;
+    width: 70%;
+}
+
+.info-product{
+    display: flex;
+    flex-direction: column;
+    justify-content: space space-around;
+    align-items: center;
+}
+
+.qty-product{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+}
+
+.qty-product button{
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.add-cart{
+    margin-bottom: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    outline:none;
+}
+
+.add-cart:hover{
+    color: white;
+    background-color: black;
+    transition: 0.6s;
+    font-size: 14px;
+}

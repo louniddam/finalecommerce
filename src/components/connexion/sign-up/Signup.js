@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import Header from '../header/Header'
+import Header from '../../global/header/Header'
 import '../sign-up/Signup.css'
 
 const Signup = () => {
@@ -26,9 +26,9 @@ const Signup = () => {
             axios.post('http://localhost:8000/sign-up', formValues)
             .then(resp => {
                 console.log(resp);
-                if(resp.data == 'New user registered'){
+                if(resp.data === 'New user registered'){
                     setMessage("New user registered")
-                } else if(resp.data == 'This email already exists'){
+                } else if(resp.data === 'This email already exists'){
                     setMessage("This email already exists, please pick an other")
                 }
             })

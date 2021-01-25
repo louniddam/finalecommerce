@@ -4,7 +4,7 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    background: url('../../asset/fond-img.jpg') repeat;
+    background: url('../../../asset/fond-img.jpg') repeat;
 
 }
 
@@ -45,6 +45,7 @@
     border: 1px solid black;
     border-radius: 15px;
     padding: 5px;
+    outline:none;
 }
 
 .btn-view-more:hover{

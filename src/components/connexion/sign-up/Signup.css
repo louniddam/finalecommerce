@@ -1,5 +1,5 @@
 .signup-container{
-    background: url('../../asset/fond-img.jpg') repeat;
+    background: url('../../../asset/fond-img.jpg') repeat;
     opacity:0.75;
     height: 100vh;
     display: flex;
@@ -52,6 +52,7 @@
     height: 5vh;
     width: 40%;
     font-size: 1.3em;
+    outline:none;
 }
 
 .signup-container form div button:hover{

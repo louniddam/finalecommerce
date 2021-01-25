@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
-// import signinUserAction from '../../storeRedux/action/signinUserAction'
-// import signinAdminAction from '../../storeRedux/action/signinAdminAction'
-import Auth from '../auth-routing/Auth'
 import "../header/Header.css"
-import CategoryList from '../category-list/CategoryList'
+import { signoutAction } from "../../../storeRedux/action/signoutAction"
+import CategoryList from '../../category/category-list/CategoryList'
+import { useHistory } from "react-router-dom"
 
 const Header = (props) => {
 
     const token = props.signinStore.userToken
     const isAdmin = props.signinStore.userInfo.isAdmin
+    const history = useHistory()
+
     const logOut = () => {
+        props.signoutAction()
+        history.push("/")
         localStorage.clear()
     }
 
@@ -43,14 +46,13 @@ const Header = (props) => {
             </nav> 
             }
             <CategoryList />
-            <Auth/>
         </div>
     );
 };
 
-// const mapDispatchToProps = { signinUserAction, signinAdminAction }
+const mapDispatchToProps = { signoutAction }
 const mapStateToProps = (state) => ({
     signinStore: state.signin,
   });
 
-export default connect(mapStateToProps,null)(Header);
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

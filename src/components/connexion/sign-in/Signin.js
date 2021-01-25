@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { connect } from "react-redux";
-import signinUserAction from '../../storeRedux/action/signinUserAction'
-import Header from '../header/Header'
+import signinUserAction from '../../../storeRedux/action/signinUserAction'
+import Header from '../../global/header/Header'
 import { useHistory } from "react-router-dom";
 import '../sign-in/Signin.css'
 

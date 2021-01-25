@@ -1,5 +1,5 @@
 import './App.css';
-import Home from '../src/components/home/Home'
+import Home from './components/global/home/Home'
 function App(props) {
   return (
     <div className="App">

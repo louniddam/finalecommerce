@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Header from '../header/Header'
+import Header from '../../global/header/Header'
 import jwt_decode from "jwt-decode"
 import { connect } from 'react-redux'
 import { useHistory } from "react-router-dom";
-import signinAdminAction from '../../storeRedux/action/signinAdminAction'
+import signinAdminAction from '../../../storeRedux/action/signinAdminAction'
 import axios from 'axios'
 require("dotenv").config();
 

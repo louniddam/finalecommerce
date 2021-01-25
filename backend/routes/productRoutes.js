@@ -42,10 +42,10 @@ const productRouter = async function (router, con) {
     await router.get('/get-product/:id', (req, res) => {
         try {
             let id = req.params.id
-            const sql = `SELECT * FROM products WHERE id = ${id}`
+            const sql = `SELECT * FROM products WHERE idproduct = ${id}`
             con.query(sql, (error, result) => {
                 if (error) throw error
-                console.log(result);
+                res.status(200).send(result)
             })
         } catch (error) {
             console.log(error);
