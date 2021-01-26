@@ -65,6 +65,44 @@ const productRouter = async function (router, con) {
             console.log(error);
         }
     })
+
+    //Categories
+    //----GET BY ID
+    await router.get('/categories/:id', (req, res) => {
+    try {
+        const id = req.params.id
+        const sql = `SELECT * FROM categories WHERE idcategory = ${id}`
+        con.query(sql, (err, result) => {
+            if (err) throw err
+            if (!result.length){
+                res.status(200).send('No category found')
+            } else {
+                res.status(200).send(result)
+            }
+        })
+    } catch (error) {
+        console.log(error);
+    }        
+    })
+
+    //Categories
+    //-----GET PRODUCTS AFFILIATE
+    await router.get('/category-products/:id', (req, res) => {
+        try {
+            const id = req.params.id
+            const sql = `SELECT * FROM products WHERE category_affiliate = ${id}`
+            con.query(sql, (err, result) => {
+                if (err) throw err
+                if (!result.length){
+                    res.status(200).send('There are no products in this category yet')
+                } else {
+                    res.status(200).send(result)
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    })
 }
 
 module.exports = productRouter

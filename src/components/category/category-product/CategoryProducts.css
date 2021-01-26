@@ -1,0 +1,16 @@
+.products-container-2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    background: url('../../../asset/fond-img.jpg') repeat;
+    height: 100vh;
+}
+
+#category-for-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../../../asset/fond-img.jpg') repeat;
+}
