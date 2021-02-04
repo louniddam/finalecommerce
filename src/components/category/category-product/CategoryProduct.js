@@ -15,8 +15,9 @@ async function fetchCategory (idAxios, setCategory) {
 }
 
 const CategoryProduct = (props) => {
+
     const param = new URLSearchParams(props.location.search)
-    const idAxios = param.get('id')
+    let idAxios = param.get('id')
     const [products, setProducts] = useState([])
     const [category, setCategory] = useState(null)
     const history = useHistory()

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './CategoryList.css'
 import { useHistory } from "react-router-dom";
+import { withRouter } from 'react-router'
+
 
 async function fetchCategories(setCategories){
     const result = await axios.get('http://Localhost:8000/categories')
@@ -30,4 +32,4 @@ const CategoryList = (props) => {
     )
 }
 
-export default CategoryList
+export default withRouter(CategoryList)

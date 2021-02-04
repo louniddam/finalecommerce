@@ -11,7 +11,8 @@ import AdminAuth from "../src/components/admin/admin-auth/SigninAdmin";
 import ProductForm from "../src/components/product/product-form/ProductForm";
 import ProductList from "./components/product/product-list/ProductList";
 import SoloProduct from './components/product/product-solo/SoloProduct';
-import CategoryProduct from './components/category/category-product/CategoryProduct'
+import CategoryProduct from './components/category/category-product/CategoryProduct';
+import UserProfil from './components/user/profil/UserProfil'
 //STRORE + PERSISTANT
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -38,8 +39,8 @@ const persistor = persistStore(store)
 
 ReactDOM.render(
   <Provider store={store}>
-     {/* <PersistGate persistor={persistor}> */}
-      <Router>
+     <PersistGate persistor={persistor}>
+      <Router forceRefresh={true}>
         <Switch>
           <Route exact path="/" component={App} />
           <Route path="/sign-in" component={Signin} />
@@ -49,9 +50,10 @@ ReactDOM.render(
           <Route path="/allproducts" component={ProductList} />
           <Route path="/single-product" component={SoloProduct} />
           <Route path="/category-product" component={CategoryProduct} />
+          <Route path="/user-profil" component={UserProfil} />
         </Switch>
       </Router>
-     {/* </PersistGate> */}
+     </PersistGate>
    </Provider>
   ,
   document.getElementById('root')

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './SoloProduct.css'
 import axios from 'axios'
 import Header from '../../global/header/Header'
+import { connect } from "react-redux";
 
 async function fetchSingleProduct (idAxios, setProduct) {
     const response = await axios.get(`http://localhost:8000/get-product/${idAxios}`)
@@ -14,6 +15,8 @@ function SoloProduct(props) {
     const idAxios = param.get('id')
     const [product, setProduct] = useState([])
     const [productQty, setProductQty] = useState(0)
+    const isAdmin = props.signinStore.userInfo.isAdmin
+    console.log(isAdmin);
 
     useEffect(() => {
         fetchSingleProduct(idAxios, setProduct)
@@ -45,7 +48,18 @@ function SoloProduct(props) {
                         <p>{productQty}</p>
                         <button onClick={() => increaseQty()}>+</button>
                     </div>
-                <button className="add-cart">Ajouter au panier</button>
+                    <div>
+                        {isAdmin ?
+                        <>
+                            <button>modifier</button>
+                            <button>supprimer</button>
+                        </>
+                        :
+                        <>
+                            <button className="add-cart">Ajouter au panier</button>
+                        </>
+                        }
+                    </div>
                 </div>
             </div>
             <div className="space"></div>
@@ -53,4 +67,8 @@ function SoloProduct(props) {
     );
 }
 
-export default SoloProduct;
+const mapStateToProps = (state) => ({
+    signinStore: state.signin,
+})
+
+export default connect(mapStateToProps, null)(SoloProduct);

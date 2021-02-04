@@ -24,14 +24,14 @@ const Header = (props) => {
                 <h1><a href="/">POP TA VIE</a></h1>
                 {isAdmin ?
                     <>
-                        <li><a href="/profil">Profil</a></li>
+                        <li><a href="/user-profil">Profil</a></li>
                         <li><a href="/cart">Panier</a></li>
                         <li><a href="/add-product">Ajout de produit</a></li>
                         <li><a href="/" onClick={logOut}>Déconnexion</a></li> 
                     </>
                     :
                     <>
-                        <li><a href="/profil">Profil</a></li>
+                        <li><a href="/user-profil">Profil</a></li>
                         <li><a href="/cart">Panier</a></li>
                         <li><a href="/" onClick={logOut}>Déconnexion</a></li>
                     </>

@@ -1,0 +1,35 @@
+.user-container{
+    background: url('../../../asset/fond-img.jpg') repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#user-infos{
+    height: 70%;
+    width: 50%;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 0px 10px #999;
+    background-color: #faf9f9;
+    border-radius: 10px;
+}
+
+#round{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#round img{
+    border-radius: 50%;
+    height: 100%;
+    width: 40%;
+}
