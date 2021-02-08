@@ -1,14 +1,14 @@
 const initialState = {
-    productss : ""
+    products: []
 }
 
 const productReducer = (state = initialState, action) => {
-    console.log("tamere");
+    // console.log(action.payload, "reducer");
     switch(action.type){
         case "STORE-PRODUCTS":
             return{
                 ...state,
-                productss: action.payload.products
+                products: action.payload
             }
         default:
             return state

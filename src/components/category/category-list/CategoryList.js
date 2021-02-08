@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
 import './CategoryList.css'
 import { useHistory } from "react-router-dom";
-import { withRouter } from 'react-router'
-
-
-async function fetchCategories(setCategories){
-    const result = await axios.get('http://Localhost:8000/categories')
-    setCategories(result.data)
-}
-
+import { connect } from "react-redux";
+// import { withRouter } from 'react-router'
 const CategoryList = (props) => {
-    const [categories, setCategories] = useState([])
+    const categories = props.categories.categories
     const history = useHistory()
-
-    useEffect(() => {
-        fetchCategories(setCategories)
-    }, [])
 
     let categoriesArray = categories.map(categories => {
         return(
@@ -32,4 +21,8 @@ const CategoryList = (props) => {
     )
 }
 
-export default withRouter(CategoryList)
+const mapStateToProps = (state) => ({
+    categories: state.categoriesReducer
+})
+
+export default connect(mapStateToProps, null)(CategoryList)

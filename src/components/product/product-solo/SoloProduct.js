@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import './SoloProduct.css'
-import axios from 'axios'
 import Header from '../../global/header/Header'
 import { connect } from "react-redux";
 
-async function fetchSingleProduct (idAxios, setProduct) {
-    const response = await axios.get(`http://localhost:8000/get-product/${idAxios}`)
-    setProduct(response.data[0])
-    
-}
-
 function SoloProduct(props) {
     const param = new URLSearchParams(props.location.search)
-    const idAxios = param.get('id')
-    const [product, setProduct] = useState([])
+    const urlId = param.get('id')
     const [productQty, setProductQty] = useState(0)
     const isAdmin = props.signinStore.userInfo.isAdmin
-    console.log(isAdmin);
+    const storedProducts = props.listOfProducts.products
+    const [product, setProduct] = useState([])
+    const soloProduct = () =>{
+       for(let i = 0; i < storedProducts.length; i++ ) {
+           if(storedProducts[i].idproduct == urlId){
+                setProduct(storedProducts[i])
+           } else{
+                console.log("wtf");
+           }
+       }
+    }
 
     useEffect(() => {
-        fetchSingleProduct(idAxios, setProduct)
-    },[])
+        soloProduct()
+    },[urlId])
 
    const increaseQty = () => {
         setProductQty(productQty + 1)
@@ -69,6 +71,7 @@ function SoloProduct(props) {
 
 const mapStateToProps = (state) => ({
     signinStore: state.signin,
+    listOfProducts: state.productsReducer
 })
 
 export default connect(mapStateToProps, null)(SoloProduct);

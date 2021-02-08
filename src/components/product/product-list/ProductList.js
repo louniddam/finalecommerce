@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
 import './ProductList.css'
 import { useHistory } from "react-router-dom"
+import { connect } from "react-redux";
 
-async function fetchProducts(setProducts){
-    let result = await axios.get('http://localhost:8000/get-products')
-    setProducts(result.data)
-}
-const ProductList = () => {
-    const [products, setProducts] = useState([])
+
+const ProductList = (props) => {
+
+    const products = props.listOfProducts.products
     const history = useHistory()
 
-    useEffect(() => {
-        fetchProducts(setProducts)
-    }, [])
-
-    // const pushToSingle = () =>{
-    //     history.push(`/single-product?id=${products.idproduct}`)
-    // }
     let allProducts = products.map(products => {
         return(
             <div className="products-cards" key={products.idproduct}>
@@ -38,4 +29,8 @@ const ProductList = () => {
      )
 }
 
-export default ProductList
+const mapStateToProps = (state) => ({
+    listOfProducts: state.productsReducer,
+  })
+
+export default connect(mapStateToProps, null)(ProductList)

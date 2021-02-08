@@ -26,6 +26,7 @@ require("dotenv").config();
 const persistConfig = {
   key: "root",
   storage,
+  // whitelist: ["products"]
 }
 // PERSISTEDREDUCER TAKE 2 PARAMS ONE FOR THE PERSISTCONFIG AND ALL OUR REDUCERS
 const persistedReducer = persistReducer(persistConfig, allReducers);
