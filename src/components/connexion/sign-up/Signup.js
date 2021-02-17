@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import Header from '../../global/header/Header'
 import '../sign-up/Signup.css'
+import { useHistory } from 'react-router-dom'
 
 const Signup = () => {
     const [pseudo, setPseudo] = useState('')
@@ -10,6 +11,7 @@ const Signup = () => {
     const [confirm, setConfirm] = useState('')
     const [img, setImg] = useState('')
     const [message, setMessage] = useState('')
+    const history = useHistory()
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -28,6 +30,7 @@ const Signup = () => {
                 console.log(resp);
                 if(resp.data === 'New user registered'){
                     setMessage("New user registered")
+                    history.push('/sign-in')
                 } else if(resp.data === 'This email already exists'){
                     setMessage("This email already exists, please pick an other")
                 }

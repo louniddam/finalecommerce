@@ -3,12 +3,23 @@ const initialState = {
 }
 
 const productReducer = (state = initialState, action) => {
-    // console.log(action.payload, "reducer");
     switch(action.type){
         case "STORE-PRODUCTS":
             return{
                 ...state,
                 products: action.payload
+            }
+        case "REMOVE-PRODUCT":
+            const idProduct = action.payload
+            let allProducts = state.products
+            let index = allProducts.findIndex(
+                (product) => product.idproduct == idProduct
+            )
+            allProducts.splice(index, 1)
+
+            return {
+                ...state,
+                products: allProducts
             }
         default:
             return state

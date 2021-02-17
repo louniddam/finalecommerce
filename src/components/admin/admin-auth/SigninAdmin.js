@@ -28,6 +28,8 @@ const SigninAdmin = (props) => {
                 let tokenDecoded = jwt_decode(resp.data.token)
                 setIncorrect(false)
                 props.signinAdminAction({tokenDecoded, token: resp.data.token})
+                localStorage.setItem('token', resp.data.token);
+                localStorage.setItem('isAdmin', tokenDecoded.isAdmin);
                 history.push("/")
             }
         })

@@ -29,6 +29,7 @@ const Signin = (props) => {
             } else if (response.data.auth){
                 let tokenDecoded = jwt_decode(response.data.token)
                 props.signinUserAction({tokenDecoded, token: response.data.token})
+                localStorage.setItem('token', response.data.token);
                 history.push('/')
             }
         })

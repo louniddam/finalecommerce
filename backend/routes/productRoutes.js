@@ -5,17 +5,19 @@ const productRouter = async function (router, con) {
     //----Create
     await router.post('/create-product', (req, res) => {
         try {
-            let name = req.body.name
-            let title = req.body.title
-            let description = req.body.description
-            let image = req.body.image
-            let price = req.body.price
-            let quantity = req.body.quantity
-            let category = req.body.category
+            let object = {
+                 name: req.body.name,
+                 title_desc: req.body.title,
+                 description: req.body.description,
+                 image: req.body.image,
+                 price: req.body.price,
+                 quantity: req.body.quantity,
+                 category_affiliate: req.body.category,
+            }
 
-            let sql = `INSERT INTO products (name, title_desc, description, image, price, quantity, category_affiliate) VALUES ('${name}', '${title}', '${description}', '${image}', '${price}', '${quantity}', '${category}')`
+            let sql = `INSERT INTO products SET ?`
 
-            con.query(sql, (err, result) => {
+            con.query(sql, object,(err, result) => {
                 if (err) throw err
                 res.status(200).send("Product well added")
             })
@@ -39,13 +41,76 @@ const productRouter = async function (router, con) {
     })
 
     //----GET SOLO PRODUCT
-    await router.get('/get-product/:id', (req, res) => {
+    await router.get('/get-product/:id',(req, res) => {
         try {
             let id = req.params.id
             const sql = `SELECT * FROM products WHERE idproduct = ${id}`
             con.query(sql, (error, result) => {
                 if (error) throw error
                 res.status(200).send(result)
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    })
+
+    //----MODIFY PRODUCT
+    await router.put('/modify-product/:id', (req, res) => {
+        try {
+            let id = req.params.id
+            let obj = {
+                 name: req.body.name,
+                 title_desc: req.body.title,
+                 description: req.body.description,
+                 image: req.body.image,
+                 price: req.body.price,
+                 quantity: req.body.quantity,
+                 category_affiliate: req.body.category
+            }
+
+            let objID = {
+                idproduct: req.params.id
+            }
+
+            let check = `SELECT * FROM products WHERE idproduct = ${id}`
+            con.query(check, (error, result) => {
+                if (error) throw error
+                if(result){
+                    let sql = `UPDATE products SET ? WHERE ?`
+                    con.query(sql, [obj, objID],(err, resu) => {
+                        if (err) throw err
+                        res.status(200).send(resu)
+                    })
+                } else {
+                    res.status(403).send("no prudct found")
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    })
+    
+    //----DELETE A PRODUCT
+    await router.post('/delete-product/:id',verif_admin, (req, res) => {
+        try {
+            let id = req.params.id
+            //je verifie si le produit existe
+            const sqlCheck = `SELECT * FROM products WHERE idproduct = ${id}`
+            con.query(sqlCheck, (e, r) => {
+                if(e) throw e
+                if(r.length){
+                    const sql = `DELETE FROM products WHERE idproduct = ${id}`
+                    con.query(sql, (error, result) =>{
+                        if (error) throw error
+                        if(result){
+                            res.status(200).send('product deleted')
+                        } else {
+                            res.status(200).send('no product found')
+                        }
+                    })
+                } else {
+                    res.status(200).send("product not found")
+                }
             })
         } catch (error) {
             console.log(error);

@@ -12,7 +12,10 @@ import ProductForm from "../src/components/product/product-form/ProductForm";
 import ProductList from "./components/product/product-list/ProductList";
 import SoloProduct from './components/product/product-solo/SoloProduct';
 import CategoryProduct from './components/category/category-product/CategoryProduct';
-import UserProfil from './components/user/profil/UserProfil'
+import UserProfil from './components/user/profil/UserProfil';
+import ProtectedUserRoute from './components/global/protectRoutes/ProtectedUserRoute';
+import ProtectedAdminRoute from './components/global/protectRoutes/ProtectedAdminRoute';
+import ModifyProduct from './components/product/modify-product/ModifyProduct'
 //STRORE + PERSISTANT
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -47,11 +50,12 @@ ReactDOM.render(
           <Route path="/sign-in" component={Signin} />
           <Route path="/sign-up" component={Signup} />
           <Route path={process.env.REACT_APP_ROUTE_AUTH} component={AdminAuth} />
-          <Route path="/add-product" component={ProductForm} />
+          <ProtectedAdminRoute path="/add-product" component={ProductForm} />
           <Route path="/allproducts" component={ProductList} />
           <Route path="/single-product" component={SoloProduct} />
           <Route path="/category-product" component={CategoryProduct} />
-          <Route path="/user-profil" component={UserProfil} />
+          <ProtectedUserRoute path="/user-profil" component={UserProfil} />
+          <Route path="/modify-product" component={ModifyProduct}/>
         </Switch>
       </Router>
      </PersistGate>

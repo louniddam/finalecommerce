@@ -19,8 +19,14 @@ const userRouter = async function (router, con) {
                     res.status(200).send("This email already exists")
                 } else {
                     bcrypt.hash(pwd, saltRounds).then(hash => {
-                        let sql2 = `INSERT INTO users (name, email, password, image) VALUES('${name}', '${email}', '${hash}', '${img}')`
-                        con.query(sql2, (error, resul) => {
+                        let object = {
+                             name: req.body.name,
+                             email: req.body.email,
+                             password: hash,
+                             image: req.body.img,
+                        }
+                        let sql2 = `INSERT INTO users SET ?`
+                        con.query(sql2, object,(error, resul) => {
                             if (error) throw error
                             res.status(200).send('New user registered')
                         })
@@ -56,7 +62,7 @@ const userRouter = async function (router, con) {
                     if(resp === true){
                         res.status(200).send({token, auth: true})
                     } else{
-                        res.status(200).send("Email or Password is incorrect");
+                        res.status(403).send("Email or Password is incorrect");
                     }
                 })
             }

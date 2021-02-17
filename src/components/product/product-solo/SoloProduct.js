@@ -2,20 +2,28 @@ import React, { useEffect, useState } from 'react';
 import './SoloProduct.css'
 import Header from '../../global/header/Header'
 import { connect } from "react-redux";
+import { useHistory } from 'react-router-dom'
+import removeProductAction from '../../../storeRedux/action/removeProductAction'
+import axios from 'axios'
 
 function SoloProduct(props) {
+    //Get proper product by id in URL
     const param = new URLSearchParams(props.location.search)
     const urlId = param.get('id')
+
     const [productQty, setProductQty] = useState(0)
+    const [product, setProduct] = useState([])
+    const history = useHistory()
+
+    //Get store informations
     const isAdmin = props.signinStore.userInfo.isAdmin
     const storedProducts = props.listOfProducts.products
-    const [product, setProduct] = useState([])
     const soloProduct = () =>{
        for(let i = 0; i < storedProducts.length; i++ ) {
            if(storedProducts[i].idproduct == urlId){
                 setProduct(storedProducts[i])
            } else{
-                console.log("wtf");
+                console.log("error");
            }
        }
     }
@@ -24,13 +32,31 @@ function SoloProduct(props) {
         soloProduct()
     },[urlId])
 
+    //Modify quantity
    const increaseQty = () => {
         setProductQty(productQty + 1)
-   }
-
+    }
    const decreaseQty = () => {
     setProductQty(productQty - 1)
-}
+    }
+
+    const deleteProduct = () => {
+        const headers = {
+            "Content-Type": "application/json",
+            authorization: props.signinStore.userToken,
+          };
+          
+        axios.post(`http://localhost:8000/delete-product/${product.idproduct}`, null,{headers : headers})
+        .then(result => {
+            if(result.data == "product deleted"){
+                props.removeProductAction(product.idproduct)
+            } else {
+                console.log("failed delet product");
+            }
+        })
+    }
+
+    console.log(props);
 
     return (
         <div className="solo-product">
@@ -53,8 +79,8 @@ function SoloProduct(props) {
                     <div>
                         {isAdmin ?
                         <>
-                            <button>modifier</button>
-                            <button>supprimer</button>
+                            <button onClick={() => history.push(`/modify-product?id=${urlId}`)}>modifier</button>
+                            <button onClick={() => {deleteProduct()}}>supprimer</button>
                         </>
                         :
                         <>
@@ -71,7 +97,11 @@ function SoloProduct(props) {
 
 const mapStateToProps = (state) => ({
     signinStore: state.signin,
-    listOfProducts: state.productsReducer
+    listOfProducts: state.productsReducer,
 })
 
-export default connect(mapStateToProps, null)(SoloProduct);
+const mapDispatchToProps = {
+    removeProductAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SoloProduct);

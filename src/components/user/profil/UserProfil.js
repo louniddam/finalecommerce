@@ -9,8 +9,6 @@ const UserProfil = (props) => {
     const user_img = props.signinStore.userInfo.img
     const user_email = props.signinStore.userInfo.email
 
-    console.log(props, "profil");
-
     return (
         <>
             <Header/>

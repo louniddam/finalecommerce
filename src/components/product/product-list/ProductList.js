@@ -8,6 +8,7 @@ const ProductList = (props) => {
 
     const products = props.listOfProducts.products
     const history = useHistory()
+    console.log(products);
 
     let allProducts = products.map(products => {
         return(
