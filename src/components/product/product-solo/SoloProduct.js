@@ -56,8 +56,6 @@ function SoloProduct(props) {
         })
     }
 
-    console.log(props);
-
     return (
         <div className="solo-product">
             <Header/>

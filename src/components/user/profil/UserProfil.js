@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import Header from '../../global/header/Header'
 import '../profil/UserProfil.css'
+import { useHistory } from "react-router-dom";
 
 const UserProfil = (props) => {
 
     const user_name = props.signinStore.userInfo.name
     const user_img = props.signinStore.userInfo.img
     const user_email = props.signinStore.userInfo.email
+    const history = useHistory()
 
     return (
         <>
@@ -21,7 +23,7 @@ const UserProfil = (props) => {
                     <p>email: {user_email}</p>
                     <div className="btn-profil">
                         <button>Voir mes commandes</button>
-                        <button>Modifier mon profil</button>
+                        <button onClick={() => history.push('/modify-profil')}>Modifier mon profil</button>
                     </div>
                 </div>
             </div>

@@ -44,7 +44,7 @@ const userRouter = async function (router, con) {
         const email = req.body.email
         const pwd = req.body.password
     
-        let sql = `SELECT * FROM USERS WHERE email = '${email}'`
+        let sql = `SELECT * FROM users WHERE email = '${email}'`
     
         con.query(sql, (err, result) => {
             if (err) throw err
@@ -62,7 +62,7 @@ const userRouter = async function (router, con) {
                     if(resp === true){
                         res.status(200).send({token, auth: true})
                     } else{
-                        res.status(403).send("Email or Password is incorrect");
+                        res.status(200).send("Email or Password is incorrect");
                     }
                 })
             }
@@ -72,7 +72,55 @@ const userRouter = async function (router, con) {
         }
     })
 
+    await router.put('/modify-profil' , (req, res) => {
+        try {
+            const previous = req.body.previous
+            const pwd = req.body.password
 
+            const sql = `SELECT * FROM users WHERE email = '${previous}'`
+            //CHECK IF user exist
+            con.query(sql , (error, result) => {
+                if(error) throw error
+
+                if(!result){
+                    res.status(200).send(error)
+                } else{
+                    const check = `SELECT * FROM users WHERE email = '${req.body.email}'`
+                    //CHECK IF new email already exist in DB
+                    con.query(check, (e, r) => {
+                        if (e) throw e
+                        if(r.data) {
+                            res.status(200).send(r)
+                        } else {
+                            const sql2 = `UPDATE users SET ? WHERE ?`
+                            bcrypt.hash(pwd, saltRounds).then(hash => {
+                                const object = {
+                                    name: req.body.name,
+                                    email: req.body.email,
+                                    image: req.body.image,
+                                    password: hash,
+                               }
+                               const object2 = {
+                                   email: req.body.previous
+                               }
+                               //OPERATE NEW changes
+                               con.query(sql2, [object, object2], (err, resu) => {
+                                    if (err) throw err
+                                    if(resu) {
+                                        console.log('profil updated');
+                                    } else {
+                                        res.status(200).send('failed')
+                                    }
+                                })
+                            })
+                        }
+                    })
+                }
+            }) 
+        } catch (error) {
+            console.log(error);
+        }
+    })
 }
 
 module.exports = userRouter

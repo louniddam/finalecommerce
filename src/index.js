@@ -15,7 +15,8 @@ import CategoryProduct from './components/category/category-product/CategoryProd
 import UserProfil from './components/user/profil/UserProfil';
 import ProtectedUserRoute from './components/global/protectRoutes/ProtectedUserRoute';
 import ProtectedAdminRoute from './components/global/protectRoutes/ProtectedAdminRoute';
-import ModifyProduct from './components/product/modify-product/ModifyProduct'
+import ModifyProduct from './components/product/modify-product/ModifyProduct';
+import FormModifyProfil from './components/user/modify-profil/FormModifyProfil'
 //STRORE + PERSISTANT
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -56,6 +57,7 @@ ReactDOM.render(
           <Route path="/category-product" component={CategoryProduct} />
           <ProtectedUserRoute path="/user-profil" component={UserProfil} />
           <Route path="/modify-product" component={ModifyProduct}/>
+          <ProtectedUserRoute path="/modify-profil" component={FormModifyProfil}/>
         </Switch>
       </Router>
      </PersistGate>
