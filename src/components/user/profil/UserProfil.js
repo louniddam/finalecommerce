@@ -21,7 +21,7 @@ const UserProfil = (props) => {
                     </div>
                     <p>profil de {user_name}</p>
                     <p>email: {user_email}</p>
-                    <div className="btn-profil">
+                    <div >
                         <button>Voir mes commandes</button>
                         <button onClick={() => history.push('/modify-profil')}>Modifier mon profil</button>
                     </div>

@@ -4,6 +4,7 @@ import Header from '../../global/header/Header'
 import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import removeProductAction from '../../../storeRedux/action/removeProductAction'
+import addToCartAction from '../../../storeRedux/action/addToCartAction'
 import axios from 'axios'
 
 function SoloProduct(props) {
@@ -11,7 +12,7 @@ function SoloProduct(props) {
     const param = new URLSearchParams(props.location.search)
     const urlId = param.get('id')
 
-    const [productQty, setProductQty] = useState(0)
+    // const [productQty, setProductQty] = useState(0)
     const [product, setProduct] = useState([])
     const history = useHistory()
 
@@ -23,7 +24,7 @@ function SoloProduct(props) {
            if(storedProducts[i].idproduct == urlId){
                 setProduct(storedProducts[i])
            } else{
-                console.log("error");
+                // console.log("error");
            }
        }
     }
@@ -32,14 +33,11 @@ function SoloProduct(props) {
         soloProduct()
     },[urlId])
 
-    //Modify quantity
-   const increaseQty = () => {
-        setProductQty(productQty + 1)
-    }
-   const decreaseQty = () => {
-    setProductQty(productQty - 1)
+    const addToCart = (product) => {
+        props.addToCartAction(product)
     }
 
+    //DELETE A PRODUCT STORE+BDD
     const deleteProduct = () => {
         const headers = {
             "Content-Type": "application/json",
@@ -56,6 +54,8 @@ function SoloProduct(props) {
         })
     }
 
+    console.log(props);
+
     return (
         <div className="solo-product">
             <Header/>
@@ -69,11 +69,10 @@ function SoloProduct(props) {
                 <div className="info-product">
                     <p>{product.price}€</p>
                     <p>Quantité en stock: {product.quantity}</p>
-                    <div className="qty-product">
-                        <button onClick={() => decreaseQty()}>-</button>
+                    {/* <div id="quantity-product">
+                        <input id="typeinp" type="range" min="0" max={product.quantity} defaultValue="1" step="1" onChange={e => setProductQty(e.target.value)}/>
                         <p>{productQty}</p>
-                        <button onClick={() => increaseQty()}>+</button>
-                    </div>
+                    </div> */}
                     <div>
                         {isAdmin ?
                         <>
@@ -82,7 +81,7 @@ function SoloProduct(props) {
                         </>
                         :
                         <>
-                            <button className="add-cart">Ajouter au panier</button>
+                            <button className="add-cart" onClick={() => addToCart(product)}>Ajouter au panier</button>
                         </>
                         }
                     </div>
@@ -96,10 +95,12 @@ function SoloProduct(props) {
 const mapStateToProps = (state) => ({
     signinStore: state.signin,
     listOfProducts: state.productsReducer,
+    cart: state.cartReducer
 })
 
 const mapDispatchToProps = {
-    removeProductAction
+    removeProductAction,
+    addToCartAction,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SoloProduct);
