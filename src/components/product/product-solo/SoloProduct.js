@@ -12,9 +12,15 @@ function SoloProduct(props) {
     const param = new URLSearchParams(props.location.search)
     const urlId = param.get('id')
 
-    // const [productQty, setProductQty] = useState(0)
+    console.log(urlId);
     const [product, setProduct] = useState([])
+    const [cartQty, setCartQty] = useState(0)
+    const token = localStorage.getItem('token');
+
+    const oldQty = product.quantity
     const history = useHistory()
+    let newQty = oldQty - cartQty
+
 
     //Get store informations
     const isAdmin = props.signinStore.userInfo.isAdmin
@@ -29,12 +35,25 @@ function SoloProduct(props) {
        }
     }
 
+    const getCartQty = () => {
+        for(let i = 0; i < props.cart.productCart.length; i++){
+            if(props.cart.productCart[i].p.idproduct == urlId){
+                setCartQty(props.cart.productCart[i].qty)
+            } else {
+                console.log('wtf');
+            }
+        }
+    }
+
+
     useEffect(() => {
         soloProduct()
+        getCartQty()
     },[urlId])
-
+    
     const addToCart = (product) => {
         props.addToCartAction(product)
+        history.push('/cart')
     }
 
     //DELETE A PRODUCT STORE+BDD
@@ -81,7 +100,17 @@ function SoloProduct(props) {
                         </>
                         :
                         <>
-                            <button className="add-cart" onClick={() => addToCart(product)}>Ajouter au panier</button>
+                        {token ?
+                            <>
+                            {newQty < 1 ? 
+                                "Ce produit n'est plus en stock" 
+                                : 
+                                <button className="add-cart" onClick={() => addToCart(product)}>Ajouter au panier</button>
+                            }
+                            </>
+                            : 
+                            <div></div>
+                        }
                         </>
                         }
                     </div>

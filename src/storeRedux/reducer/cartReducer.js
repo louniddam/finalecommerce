@@ -47,6 +47,20 @@ const cartReducer = (state = initialState, action) => {
             }
           }
 
+          case "DELETE-PRODUCT": 
+          let deletedProductIndex = state.productCart.findIndex(
+            (product) => product.p.idproduct === action.payload
+          );
+          console.log(deletedProductIndex);
+    
+          return {
+            ...state,
+            productCart: [
+              ...state.productCart.splice(0, deletedProductIndex),
+              ...state.productCart.splice(deletedProductIndex + 1),
+            ],
+          };
+
           case "EMPTY-CART":
             return initialState
 
