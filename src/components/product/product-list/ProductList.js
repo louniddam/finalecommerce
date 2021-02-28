@@ -14,14 +14,17 @@ const ProductList = (props) => {
             <div className="products-cards" key={products.idproduct}>
                 <img src={products.image}/>
                 <p><span>{products.name}</span></p>
+                <p className="reduce">prix: {products.price} €</p>
+                <p className="reduce">quantité: {products.quantity}</p>
                 <button className="btn-view-more" onClick={()=> history.push(`/single-product?id=${products.idproduct}`)
-}>View more</button>
+}>Voir plus</button>
             </div>
         )
     })
 
      return(
          <>
+         <br></br>
          <div className="products-container">
              {allProducts}
          </div>

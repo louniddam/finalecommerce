@@ -10,9 +10,8 @@
 .products-cards{
     font-family: 'Amatic SC', cursive;
     border: 1px solid black;
-    height: 40vh;
     display: flex;
-    flex: 0 0 23.333333%; /*media query remettre en 33%*/
+    flex: 0 0 23.333333%;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -54,3 +53,22 @@ transition: 0.6s;
 border: 1px solid rgb(63, 63, 202);
 font-size: 14px;
 }
+
+@media screen and (max-width: 1200px) {
+
+    .products-cards{
+        flex: 0 0 23.333333%;
+        font-size: 1em;
+    }
+
+  }
+
+
+@media screen and (max-width: 640px) {
+
+    .products-cards{
+        flex: 0 0 53.333333%;
+        font-size: 0.8em;
+    }
+
+  }

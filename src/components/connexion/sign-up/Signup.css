@@ -65,3 +65,12 @@
     font-size: 1.5em;
     transition: 0.6s;
 }
+
+@media screen and (max-width: 640px) {
+
+    .signup-container form{
+        height: 80%;
+        width: 80%;
+    }
+
+  }

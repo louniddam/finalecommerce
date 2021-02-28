@@ -18,26 +18,26 @@ const Header = (props) => {
     }
 
     return (
-        <div className="header-container">
+        <header className="header-container">
             {token ?            
             <nav className="nav-menu">
                 <h1><a href="/">POP TA VIE</a></h1>
                 {isAdmin ?
-                    <>
+                    <ul className="nav-admin">
                         <li><a href="/user-profil">Profil</a></li>
-                        <li><a href="/cart">Panier</a></li>
                         <li><a href="/add-product">Ajout de produit</a></li>
                         <li><a href="/" onClick={logOut}>Déconnexion</a></li> 
-                    </>
+                    </ul>
                     :
-                    <>
+                    <ul>
                         <li><a href="/user-profil">Profil</a></li>
                         <li><a href="/cart">Panier</a></li>
                         <li><a href="/" onClick={logOut}>Déconnexion</a></li>
-                    </>
-                    }
-            </nav> : 
-                <nav className="nav-menu">
+                    </ul>
+                }
+            </nav> 
+            : 
+            <nav className="nav-menu">
                 <h1><a href="/">POP TA VIE</a></h1>
                 <ul>
                     <li><a href="/sign-in">Connexion</a></li>
@@ -46,7 +46,8 @@ const Header = (props) => {
             </nav> 
             }
             <CategoryList />
-        </div>
+            <br></br>
+        </header>
     );
 };
 

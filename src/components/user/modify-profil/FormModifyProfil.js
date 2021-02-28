@@ -31,8 +31,13 @@ const FormModifyProfil = () => {
         if(password == confirmation){
            axios.put(`http://localhost:8000/modify-profil`, formValues)
            .then(resp => {
-            localStorage.clear()
-               history.push('/')
+            console.log(resp);
+            if(resp.data == "Email already use"){
+                setErrorMessage(resp.data)
+            } else {
+                localStorage.clear()
+                history.push('/')
+            }
            })
         } else {
             setErrorMessage("Validation de mot de passe érronnée")

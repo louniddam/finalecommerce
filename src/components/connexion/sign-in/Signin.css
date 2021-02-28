@@ -31,7 +31,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 60%;
+    /* width: 60%; */
 }
 
 .signin-container form div input {
@@ -50,9 +50,9 @@
     border: 1px solid black;
     font-family: 'Amatic SC', cursive;
     height: auto;
-    width: 9vw;
     font-size: 1em;
     outline:none;
+    margin-top: 10px;
 }
 
 .signin-container form div button:hover{
@@ -75,3 +75,12 @@
 .is-wrong{
     border: 1px solid red;
 }
+
+@media screen and (max-width: 640px) {
+
+    .signin-container form {
+        height: initial;
+        width: initial;
+    }
+
+  }

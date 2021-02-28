@@ -23,6 +23,7 @@ const productRouter = async function (router, con) {
             })
         } catch (error) {
             console.log(error);
+            res.status(200).send(error)
         }
 
     })
@@ -82,7 +83,7 @@ const productRouter = async function (router, con) {
                         res.status(200).send(resu)
                     })
                 } else {
-                    res.status(403).send("no prudct found")
+                    res.status(200).send("no prudct found")
                 }
             })
         } catch (error) {

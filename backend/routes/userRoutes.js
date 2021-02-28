@@ -89,9 +89,11 @@ const userRouter = async function (router, con) {
                     //CHECK IF new email already exist in DB
                     con.query(check, (e, r) => {
                         if (e) throw e
-                        if(r.data) {
-                            res.status(200).send(r)
+                        if(r.length) {
+                            console.log(r);
+                            res.status(200).send("Email already use")
                         } else {
+                            console.log(r);
                             const sql2 = `UPDATE users SET ? WHERE ?`
                             bcrypt.hash(pwd, saltRounds).then(hash => {
                                 const object = {
@@ -108,6 +110,7 @@ const userRouter = async function (router, con) {
                                     if (err) throw err
                                     if(resu) {
                                         console.log('profil updated');
+                                        res.status(200).send(resu)
                                     } else {
                                         res.status(200).send('failed')
                                     }

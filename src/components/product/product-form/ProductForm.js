@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Header from '../../global/header/Header'
 import '../product-form/ProductForm.css'
+import { useHistory } from 'react-router-dom'
 
 async function fetchCategories(setCategory_data){
     const result = await axios.get(`http://localhost:8000/categories`)
@@ -17,6 +18,7 @@ const ProductForm = () => {
     const [price, setPrice] = useState('')
     const [qty, setQty] = useState('')
     const [category_data, setCategory_data] = useState([])
+    const history = useHistory()
 
     useEffect(() => {
         fetchCategories(setCategory_data)
@@ -24,9 +26,7 @@ const ProductForm = () => {
     
     const categories = category_data.map(category_data => {
         return(
-            <>
                 <option key={category_data.idcategory} value={category_data.name}>{category_data.name}</option>
-            </>
         )
     })
 
@@ -59,6 +59,7 @@ const ProductForm = () => {
         axios.post(`http://localhost:8000/create-product`, formValues)
         .then(resp => {
             console.log(resp);
+            history.push('/')
         })
         .catch(err => {
             console.log(err);
@@ -91,14 +92,14 @@ const ProductForm = () => {
                     <div>
                         <label>Categorie:</label>
                         <select name="caegorie" id="categorie" onChange={e => setCategory(e.target.value)}>
-                        <option value="">--Please choose an option--</option>
+                        <option value="">--Sélestionnez une option--</option>
                             {categories}
                         </select>
                     </div>
                     <div>
                         <label>Prix:</label>
                         <input type="number" name="prod-price" id="prod-price"  min="1"
-                        step="0.1" onChange={e => setPrice(e.target.value)}/>
+                        step="0.01" onChange={e => setPrice(e.target.value)}/>
                     </div>
                     <div>
                         <label>Quantité:</label>
@@ -108,6 +109,8 @@ const ProductForm = () => {
                         <button onClick={formSubmit}>ajouter</button>
                     </div>
                 </form>
+                <br></br>
+                <br></br>
             </div>
         </div>
         </>

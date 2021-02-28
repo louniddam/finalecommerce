@@ -28,3 +28,31 @@
     width: 48%;
     transition: 0.6s;
 }
+
+#category-list{
+    display: none;
+}
+
+
+@media screen and (max-width: 640px) {
+
+    #category-list{
+        display: initial;
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #category-list label{
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        font-size: 1.3em;
+    }
+
+    #categories-container{
+        display: none;
+    }
+
+  }

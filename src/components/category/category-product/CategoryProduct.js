@@ -37,8 +37,10 @@ const CategoryProduct = (props) => {
             <div className="products-cards" key={products.idproduct}>
                 <img src={products.image}/>
                 <p><span>{products.name}</span></p>
+                <p>prix: {products.price}€</p>
+                <p>quantité: {products.quantity}</p>
                 <button className="btn-view-more" onClick={()=> history.push(`/single-product?id=${products.idproduct}`)
-}>View more</button>
+}>Voir plus</button>
             </div>
         )
     })
@@ -46,14 +48,17 @@ const CategoryProduct = (props) => {
     return(
         <div>
             <Header/>
+            <br></br>
             <div id='category-for-img'>
                 {
                category != null && <img src={category.image}/> 
                 }
             </div>
+            <br></br>
             <div className="products-container-2">
                 {productsList}
             </div>
+            <br></br>
         </div>
     )
 }

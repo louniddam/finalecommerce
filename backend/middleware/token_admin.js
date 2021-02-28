@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 
 const token_admin = (req, res, next) => {
     try {
-        console.log("ouip");
         let auth = req.headers["authorization"]
  
         jwt.verify(auth, "admin", (err, result) => {

@@ -67,6 +67,7 @@ function SoloProduct(props) {
         .then(result => {
             if(result.data == "product deleted"){
                 props.removeProductAction(product.idproduct)
+                history.push('/')
             } else {
                 console.log("failed delet product");
             }
