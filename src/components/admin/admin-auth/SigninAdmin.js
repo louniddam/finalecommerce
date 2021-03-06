@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Header from '../../global/header/Header'
+import '../admin-auth/SigninAdmin.css'
 import jwt_decode from "jwt-decode"
 import { connect } from 'react-redux'
 import { useHistory } from "react-router-dom";
@@ -41,6 +42,7 @@ const SigninAdmin = (props) => {
         <>
         <Header/>
         <div className="container-admin-auth">
+            <h1>Connexion</h1>
             <form onSubmit={formSubmit}>
                 <div>
                     <label>Email:</label>

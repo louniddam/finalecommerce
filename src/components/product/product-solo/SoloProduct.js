@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import removeProductAction from '../../../storeRedux/action/removeProductAction'
 import addToCartAction from '../../../storeRedux/action/addToCartAction'
+import decreaseQuantityAction from '../../../storeRedux/action/decreaseQuantityAction'
 import axios from 'axios'
 
 function SoloProduct(props) {
@@ -12,7 +13,6 @@ function SoloProduct(props) {
     const param = new URLSearchParams(props.location.search)
     const urlId = param.get('id')
 
-    console.log(urlId);
     const [product, setProduct] = useState([])
     const [cartQty, setCartQty] = useState(0)
     const token = localStorage.getItem('token');
@@ -53,6 +53,7 @@ function SoloProduct(props) {
     
     const addToCart = (product) => {
         props.addToCartAction(product)
+        props.decreaseQuantityAction(product)
         history.push('/cart')
     }
 
@@ -71,6 +72,9 @@ function SoloProduct(props) {
             } else {
                 console.log("failed delet product");
             }
+        })
+        .catch(error => {
+            console.log('something went wrong');
         })
     }
 
@@ -95,10 +99,10 @@ function SoloProduct(props) {
                     </div> */}
                     <div>
                         {isAdmin ?
-                        <>
-                            <button onClick={() => history.push(`/modify-product?id=${urlId}`)}>modifier</button>
-                            <button onClick={() => {deleteProduct()}}>supprimer</button>
-                        </>
+                        <div className='adm-btn'>
+                            <button className="add-cart" onClick={() => history.push(`/modify-product?id=${urlId}`)}>modifier</button>
+                            <button  className="add-cart" onClick={() => {deleteProduct()}}>supprimer</button>
+                        </div>
                         :
                         <>
                         {token ?
@@ -115,6 +119,7 @@ function SoloProduct(props) {
                         </>
                         }
                     </div>
+                    <br></br>
                 </div>
             </div>
             <div className="space"></div>
@@ -131,6 +136,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     removeProductAction,
     addToCartAction,
+    decreaseQuantityAction,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SoloProduct);

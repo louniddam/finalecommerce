@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import Header from '../../global/header/Header'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import '../modify-product/ModifyProduct.css'
+import { createProductSchema } from '../../../Validations/ProductForm'
+
 
 async function fetchCategories(setCategory_data){
     const result = await axios.get(`http://localhost:8000/categories`)
@@ -40,9 +43,7 @@ const ModifyProduct = (props) => {
 
     const categories = category_data.map(category_data => {
         return(
-            <>
                 <option key={category_data.idcategory} value={category_data.name}>{category_data.name}</option>
-            </>
         )
     })
 
@@ -51,7 +52,7 @@ const ModifyProduct = (props) => {
     }
 
 
-    const formSubmit = () => {
+    const formSubmit = async () => {
 
         let category_affilliate = ''
             if (category.length) {
@@ -64,34 +65,36 @@ const ModifyProduct = (props) => {
             }
     
            const formValues = {
-                name: name || product.name,
-                title: title || product.title_desc,
-                description: description || product.description,
-                image: image || product.image,
-                price: price || product.price,
-                quantity: qty || product.quantity,
+                name: name,
+                title: title,
+                description: description,
+                image: image,
+                price: price,
+                quantity: qty,
                 category: category_affilliate,
             }
 
-            console.log(formValues);
-    
-            axios.put(`http://localhost:8000/modify-product/${urlId}`, formValues)
-            .then(resp => {
-                console.log(resp);
-                history.push('/')
-            })
-            .catch(err => {
-                console.log(err);
-            })
+            const isValid = await createProductSchema.isValid(formValues)
+            console.log(isValid);
+            if(isValid){
+                axios.put(`http://localhost:8000/modify-product/${urlId}`, formValues)
+                .then(resp => {
+                    console.log(resp);
+                    history.push('/')
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            }
         }
 
     return(
         <>
         <Header />
-        <div>
+        <div className="mdfy-prod-form">
             <h1>Modifier le produit</h1>
-            <div>
-                <form onClick={handleFormSubmit}>
+            <div className="form-mdfy">
+                <form className="lol2" onClick={handleFormSubmit}>
                     <div>
                         <label>Nom du produit:</label>
                         <input type="text" name="prod-name" id="prod-name" placeholder={product.name} onChange={e => setName(e.target.value)}/>
@@ -124,12 +127,15 @@ const ModifyProduct = (props) => {
                         <label>Quantité:</label>
                         <input type="number" name="prod-qty" placeholder={product.quantity} id="ptod-qty" onChange={e => setQty(e.target.value)}/>
                     </div>
+                    <br></br>
                     <div>
                         <button onClick={formSubmit}>modifier</button>
                     </div>
+                    <br></br>
                 </form>
             </div>
         </div>
+        <br></br>
         </>
     )
 }

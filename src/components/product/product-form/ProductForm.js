@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../global/header/Header'
 import '../product-form/ProductForm.css'
 import { useHistory } from 'react-router-dom'
+import { createProductSchema } from '../../../Validations/ProductForm'
 
 async function fetchCategories(setCategory_data){
     const result = await axios.get(`http://localhost:8000/categories`)
@@ -18,6 +19,7 @@ const ProductForm = () => {
     const [price, setPrice] = useState('')
     const [qty, setQty] = useState('')
     const [category_data, setCategory_data] = useState([])
+    const [errMess, setErrMess] = useState('')
     const history = useHistory()
 
     useEffect(() => {
@@ -34,14 +36,13 @@ const ProductForm = () => {
         e.preventDefault()
     }
 
-    const formSubmit = () => {
+    const formSubmit = async () => {
 
     let category_affilliate = ''
         if (category.length) {
             for(let i = 0; i < category_data.length; i++){
                 if(category === category_data[i].name){
                     category_affilliate = category_data[i].idcategory
-                    console.log(category_affilliate);
                 }
             }
         }
@@ -56,14 +57,20 @@ const ProductForm = () => {
             category: category_affilliate,
         }
 
-        axios.post(`http://localhost:8000/create-product`, formValues)
-        .then(resp => {
-            console.log(resp);
-            history.push('/')
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        const isValid = await createProductSchema.isValid(formValues)
+
+        if(isValid) {
+            setErrMess('')
+            axios.post(`http://localhost:8000/create-product`, formValues)
+            .then(resp => {
+                history.push('/')
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        } else {
+            setErrMess('Certains champs sont invalides')
+        }
     }
 
     return(
@@ -71,6 +78,7 @@ const ProductForm = () => {
         <Header />
         <div className="container-form-product">
             <h1>Ajouter un produit</h1>
+            <p>{errMess}</p>
             <div className="sub">
                 <form onSubmit={handleFormSubmit}>
                     <div>

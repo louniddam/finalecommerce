@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Header from '../../global/header/Header'
 import '../sign-up/Signup.css'
 import { useHistory } from 'react-router-dom'
+import { userSignupSchema } from '../../../Validations/UserSignup'
 
 const Signup = () => {
     const [pseudo, setPseudo] = useState('')
@@ -17,26 +18,33 @@ const Signup = () => {
         e.preventDefault()
     }
 
-    const formSubmit = () => {
+    const formSubmit = async () => {
         let formValues = {
             name: pseudo,
             email: email,
             pwd: password,
             img: img,
         }
-        if(password === confirm) {
-            axios.post('http://localhost:8000/sign-up', formValues)
-            .then(resp => {
-                console.log(resp);
-                if(resp.data === 'New user registered'){
-                    setMessage("New user registered")
-                    history.push('/sign-in')
-                } else if(resp.data === 'This email already exists'){
-                    setMessage("This email already exists, please pick an other")
-                }
-            })
+
+        const isValid = await userSignupSchema.isValid(formValues)
+        if(isValid) {
+            if(password === confirm) {
+                axios.post('http://localhost:8000/sign-up', formValues)
+                .then(resp => {
+                    console.log(resp);
+                    if(resp.data === 'New user registered'){
+                        setMessage("New user registered")
+                        history.push('/sign-in')
+                    }
+                })
+                .catch(error => {
+                    setMessage("Problème d'email ou de mot de passe")
+                })
+            } else if (password != confirm){
+                setMessage("Les mots de passe ne correspondent pas")
+            }
         } else {
-            setMessage("password confirmation is wrong")
+            setMessage("Veuillez respecter le format indiqué par les champs")
         }
     }
 
@@ -49,23 +57,23 @@ const Signup = () => {
             <form method="post" onSubmit={handleSubmit}>
                 <div>
                     <label>Pseudo:</label>
-                    <input type="text" id="pseudo" name="pseudo" required onChange={e => setPseudo(e.target.value)}/>
+                    <input type="text" id="pseudo" name="pseudo" placeholder="4-10 lettres" required onChange={e => setPseudo(e.target.value)}/>
                 </div>
                 <div>
                     <label>Email:</label>
-                    <input type="email" id="signEmail" name="email" required onChange={e => setEmail(e.target.value)}/>
+                    <input type="email" id="signEmail" name="email" placeholder="email@gmail.com" required onChange={e => setEmail(e.target.value)}/>
                 </div>
                 <div>
                     <label>Mot de passe:</label>
-                    <input type="password" id="signPwd" name="password" required onChange={e => setPassword(e.target.value)}/>
+                    <input type="password" id="signPwd" name="password" placeholder="4-10 caractères" required onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div>
                     <label>Confirmation:</label>
-                    <input type="password" id="confirmPwd" name="confirm" required onChange={e => setConfirm(e.target.value)}/>
+                    <input type="password" id="confirmPwd" name="confirm" placeholder="confirmation" required onChange={e => setConfirm(e.target.value)}/>
                 </div>
                 <div>
                     <label>Ajouter un avatar</label>
-                    <input type="text" id="avatar" name="avatar" required onChange={e => setImg(e.target.value)}/>
+                    <input type="text" id="avatar" name="avatar" placeholder="entrez une URL" required onChange={e => setImg(e.target.value)}/>
                 </div>
                 <div>
                     <button onClick={formSubmit}>créer</button>

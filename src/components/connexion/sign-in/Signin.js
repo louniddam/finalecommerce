@@ -6,6 +6,7 @@ import signinUserAction from '../../../storeRedux/action/signinUserAction'
 import Header from '../../global/header/Header'
 import { useHistory } from "react-router-dom";
 import '../sign-in/Signin.css'
+import { userSigninSchema } from '../../../Validations/UserSignin'
 
 
 const Signin = (props) => {
@@ -20,19 +21,23 @@ const Signin = (props) => {
             email: email,
             password: password,
         }
-
-        await axios.post('http://localhost:8000/sign-in', formValues)
-        .then(response => {
-            if (response.data === "Email or Password is incorrect"){
-                setData(response.data)
+        const isValid = await userSigninSchema.isValid(formValues)
+        if(isValid){
+            await axios.post('http://localhost:8000/sign-in', formValues)
+            .then(response => {
+                if (response.data.auth){
+                    let tokenDecoded = jwt_decode(response.data.token)
+                    props.signinUserAction({tokenDecoded, token: response.data.token})
+                    localStorage.setItem('token', response.data.token);
+                    history.push('/')
+                }
+            })
+            .catch(error => {
                 setClassName('is-wrong')
-            } else if (response.data.auth){
-                let tokenDecoded = jwt_decode(response.data.token)
-                props.signinUserAction({tokenDecoded, token: response.data.token})
-                localStorage.setItem('token', response.data.token);
-                history.push('/')
-            }
-        })
+            })
+        } else {
+            setData("Les champs ne sont pas valides")
+        }
     }
 
     const handleSubmit = (e) => {
@@ -49,7 +54,7 @@ const Signin = (props) => {
             <form  onSubmit={handleSubmit}>
                 <div className="signin-email">
                     <label>Votre email</label>
-                    <input type="email" name="email" id="email" className={className} required onChange={e => setEmail(e.target.value)}/>
+                    <input type="email" name="email" id="email"  className={className} required onChange={e => setEmail(e.target.value)}/>
                 </div>
                 <div className="signin-pwd">
                     <label>Votre mot de passe</label>
@@ -58,8 +63,8 @@ const Signin = (props) => {
                 <div className="signin-btn">
                     <button onClick={formSubmit}>connexion</button>
                 </div>
-                <br></br>
             </form>
+            <br></br>
         </div>
         </>
     )

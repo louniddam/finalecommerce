@@ -9,8 +9,8 @@ const adminRouter = async function (router, con) {
             let email = req.body.email
             let pwd = req.body.pwd
 
-            let sql = `SELECT * FROM admin WHERE email = '${email}'`
-            con.query(sql, (error, result) => {
+            let sql = `SELECT * FROM admin WHERE email = ?`
+            con.query(sql, email,(error, result) => {
                 if (error) throw error
                 if (!result.length) {
                     res.status(200).send("Email or password incorrect")

@@ -8,7 +8,7 @@ const CategoryList = (props) => {
     const history = useHistory()
     const [category, setCategory] = useState('')
 
-    const test = () => {
+    const getCategories = () => {
         if(category){
             for(let i = 0; i < categories.length; i++){
                 if(categories[i].name === category){
@@ -33,7 +33,7 @@ const CategoryList = (props) => {
     })
 
     useEffect(() => {
-        test()
+        getCategories()
     }, [category])
 
     return(

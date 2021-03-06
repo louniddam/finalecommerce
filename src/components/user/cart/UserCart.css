@@ -7,7 +7,7 @@
 }
 
 #cart-container{
-    width: 70%;
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,6 +28,31 @@
     height: auto;
     width: 100px;
 }
+
+#cart-card button{
+    background-color: white;
+    border: 1px solid black;
+    margin-bottom: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.cart-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cart-btn button{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
 
 #product-name{
     font-size: 11px;

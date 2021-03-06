@@ -23,7 +23,7 @@ const productRouter = async function (router, con) {
             })
         } catch (error) {
             console.log(error);
-            res.status(200).send(error)
+            res.status(403).send(error)
         }
 
     })
@@ -44,9 +44,11 @@ const productRouter = async function (router, con) {
     //----GET SOLO PRODUCT
     await router.get('/get-product/:id',(req, res) => {
         try {
-            let id = req.params.id
-            const sql = `SELECT * FROM products WHERE idproduct = ${id}`
-            con.query(sql, (error, result) => {
+            const sql = `SELECT * FROM products WHERE idproduct = ?`
+            const obj = {
+                idproduct: req.params.id
+            }
+            con.query(sql, obj,(error, result) => {
                 if (error) throw error
                 res.status(200).send(result)
             })
@@ -58,7 +60,6 @@ const productRouter = async function (router, con) {
     //----MODIFY PRODUCT
     await router.put('/modify-product/:id', (req, res) => {
         try {
-            let id = req.params.id
             let obj = {
                  name: req.body.name,
                  title_desc: req.body.title,
@@ -73,8 +74,11 @@ const productRouter = async function (router, con) {
                 idproduct: req.params.id
             }
 
-            let check = `SELECT * FROM products WHERE idproduct = ${id}`
-            con.query(check, (error, result) => {
+            let check = `SELECT * FROM products WHERE ?`
+            const obj3 = {
+                idproduct: req.params.id
+            }
+            con.query(check, obj3,(error, result) => {
                 if (error) throw error
                 if(result){
                     let sql = `UPDATE products SET ? WHERE ?`
@@ -83,7 +87,7 @@ const productRouter = async function (router, con) {
                         res.status(200).send(resu)
                     })
                 } else {
-                    res.status(200).send("no prudct found")
+                    res.status(403).send("no prudct found")
                 }
             })
         } catch (error) {
@@ -94,23 +98,25 @@ const productRouter = async function (router, con) {
     //----DELETE A PRODUCT
     await router.post('/delete-product/:id',verif_admin, (req, res) => {
         try {
-            let id = req.params.id
             //je verifie si le produit existe
-            const sqlCheck = `SELECT * FROM products WHERE idproduct = ${id}`
-            con.query(sqlCheck, (e, r) => {
+            const sqlCheck = `SELECT * FROM products WHERE ?`
+            const obj = {
+                idproduct: req.params.id
+            }
+            con.query(sqlCheck, obj,(e, r) => {
                 if(e) throw e
                 if(r.length){
-                    const sql = `DELETE FROM products WHERE idproduct = ${id}`
-                    con.query(sql, (error, result) =>{
+                    const sql = `DELETE FROM products WHERE ?`
+                    con.query(sql, obj,(error, result) =>{
                         if (error) throw error
                         if(result){
                             res.status(200).send('product deleted')
                         } else {
-                            res.status(200).send('no product found')
+                            res.status(403).send('no product found')
                         }
                     })
                 } else {
-                    res.status(200).send("product not found")
+                    res.status(403).send("product not found")
                 }
             })
         } catch (error) {
@@ -128,7 +134,7 @@ const productRouter = async function (router, con) {
                 res.status(200).send(result)
             })
         } catch (error) {
-            console.log(error);
+            res.status(403).send('something went wrong')
         }
     })
 
@@ -136,12 +142,14 @@ const productRouter = async function (router, con) {
     //----GET BY ID
     await router.get('/categories/:id', (req, res) => {
     try {
-        const id = req.params.id
-        const sql = `SELECT * FROM categories WHERE idcategory = ${id}`
-        con.query(sql, (err, result) => {
+        const sql = `SELECT * FROM categories WHERE ?`
+        const obj = {
+            idcategory: req.params.id
+        }
+        con.query(sql, obj,(err, result) => {
             if (err) throw err
             if (!result.length){
-                res.status(200).send('No category found')
+                res.status(403).send('No category found')
             } else {
                 res.status(200).send(result)
             }
@@ -155,12 +163,14 @@ const productRouter = async function (router, con) {
     //-----GET PRODUCTS AFFILIATE
     await router.get('/category-products/:id', (req, res) => {
         try {
-            const id = req.params.id
-            const sql = `SELECT * FROM products WHERE category_affiliate = ${id}`
-            con.query(sql, (err, result) => {
+            const sql = `SELECT * FROM products WHERE ?`
+            const obj = {
+                category_affiliate: req.params.id
+            }
+            con.query(sql, obj,(err, result) => {
                 if (err) throw err
                 if (!result.length){
-                    res.status(200).send('There are no products in this category yet')
+                    res.status(403).send('There are no products in this category yet')
                 } else {
                     res.status(200).send(result)
                 }

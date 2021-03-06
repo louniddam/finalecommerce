@@ -7,16 +7,16 @@ const userRouter = async function (router, con) {
     //Sign-up
     await router.post('/sign-up', function (req, res) {
         try {
-            const name = req.body.name
-            const email = req.body.email
             let pwd = req.body.pwd
-            const img = req.body.img
 
-            let verif = `SELECT email FROM users WHERE email = '${email}'`
-            con.query(verif, (err, result) => {
+            let verif = `SELECT email FROM users WHERE ?`
+            const obj = {
+                email: req.body.email
+            }
+            con.query(verif, obj,(err, result) => {
                 if (err) throw err
                 if (result.length) {
-                    res.status(200).send("This email already exists")
+                    res.status(403).send()
                 } else {
                     bcrypt.hash(pwd, saltRounds).then(hash => {
                         let object = {
@@ -41,16 +41,15 @@ const userRouter = async function (router, con) {
     //Sign-in
     await router.post('/sign-in', (req,res) => {
         try {
-        const email = req.body.email
-        const pwd = req.body.password
-    
-        let sql = `SELECT * FROM users WHERE email = '${email}'`
-    
-        con.query(sql, (err, result) => {
+        let sql = `SELECT * FROM users WHERE  ?`
+        const obj = {
+            email: req.body.email
+        }
+        con.query(sql, obj,(err, result) => {
             if (err) throw err
     
             if (!result.length) {
-                res.status(200).send("Email or password incorrect")
+                res.status(403).send("Email or password incorrect")
             } else {
                 let token = jwt.sign({
                     name: result[0].name,
@@ -58,11 +57,11 @@ const userRouter = async function (router, con) {
                     img: result[0].image,
                     isAdmin: false,
                 }, 'secret')
-                bcrypt.compare(pwd, result[0].password).then(resp => {
+                bcrypt.compare(req.body.password, result[0].password).then(resp => {
                     if(resp === true){
                         res.status(200).send({token, auth: true})
                     } else{
-                        res.status(200).send("Email or Password is incorrect");
+                        res.status(403).send("Email or Password is incorrect");
                     }
                 })
             }
@@ -72,58 +71,147 @@ const userRouter = async function (router, con) {
         }
     })
 
-    await router.put('/modify-profil' , (req, res) => {
+
+    //Modify profil -- name
+    await router.put('/change-name', (req, res) => {
         try {
-            const previous = req.body.previous
-            const pwd = req.body.password
-
-            const sql = `SELECT * FROM users WHERE email = '${previous}'`
-            //CHECK IF user exist
-            con.query(sql , (error, result) => {
-                if(error) throw error
-
-                if(!result){
-                    res.status(200).send(error)
-                } else{
-                    const check = `SELECT * FROM users WHERE email = '${req.body.email}'`
-                    //CHECK IF new email already exist in DB
-                    con.query(check, (e, r) => {
-                        if (e) throw e
-                        if(r.length) {
-                            console.log(r);
-                            res.status(200).send("Email already use")
+            const sql = `SELECT * FROM users WHERE ?`
+            const obj = {
+                email: req.body.previous
+            }
+            con.query(sql, obj, (error, result) => {
+                if (error) throw error
+                if(result.length < 1){
+                    res.status(403).send(`This profil can't be modify`)
+                } else {
+                    const sql2 = `UPDATE users SET ? WHERE ?`
+                    const obj1 = {
+                        name: req.body.name,
+                    }
+                    const obj2 = {
+                        email: req.body.previous,
+                    }
+                    con.query(sql2, [obj1, obj2], (err, resul) => {
+                        if (err) throw err
+                        if(resul.affectedRows < 1){
+                            res.status(403).send("update impossible")
                         } else {
-                            console.log(r);
-                            const sql2 = `UPDATE users SET ? WHERE ?`
-                            bcrypt.hash(pwd, saltRounds).then(hash => {
-                                const object = {
-                                    name: req.body.name,
-                                    email: req.body.email,
-                                    image: req.body.image,
-                                    password: hash,
-                               }
-                               const object2 = {
-                                   email: req.body.previous
-                               }
-                               //OPERATE NEW changes
-                               con.query(sql2, [object, object2], (err, resu) => {
-                                    if (err) throw err
-                                    if(resu) {
-                                        console.log('profil updated');
-                                        res.status(200).send(resu)
-                                    } else {
-                                        res.status(200).send('failed')
-                                    }
-                                })
-                            })
+                            res.status(200).send("Name updated")
                         }
                     })
                 }
-            }) 
+            })
         } catch (error) {
             console.log(error);
         }
     })
+    //Modify profil -- email
+    await router.put('/change-email', (req, res) => {
+        try {
+            const sql = `SELECT * FROM users WHERE ?`
+            const obj = {
+                email: req.body.previous
+            }
+            con.query(sql, obj, (error, result) => {
+                if (error) throw error
+                if(result.length < 1) {
+                    res.status(403).send(`This profil can't be modify`)
+                } else {
+                    const sql2 = `SELECT email FROM users WHERE ?`
+                    const obj4 = {
+                        email: req.body.email
+                    }
+                    con.query(sql2, obj4, (e, r) => {
+                        if (e) throw e
+                        if(r.length) {
+                            res.status(403).send(`Une erreur c'est produite`)
+                        } else {
+                            const sql3 = `UPDATE users SET ? WHERE ?`
+                            const obj1 = {
+                                email: req.body.email
+                            }
+                            const obj2 = {
+                                email: req.body.previous
+                            }
+                            con.query(sql3, [obj1, obj2], (err, resu) => {
+                                if (err) throw err
+                                if(resu.affectedRows < 1){
+                                    res.status(403).send("update impossible")
+                                } else {
+                                    res.status(200).send("Email updated")
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    })
+    //Modify profil image
+    await router.put('/change-image', (req, res) => {
+        try {
+            const sql = `SELECT * FROM users WHERE email = ?`
+            con.query(sql, req.body.previous, (error, result) => {
+                if (error) throw error
+                if(result.length < 1) {
+                    res.status(403).send(`This profil can't be modify`)
+                } else {
+                    const sql2 = `UPDATE users SET ? WHERE ?`
+                    const obj1 = {
+                        image: req.body.image
+                    }
+                    const obj2 = {
+                        email: req.body.previous
+                    }
+                    con.query(sql2, [obj1, obj2], (err, resu) => {
+                        if (err) throw err
+                        if(resu.affectedRows < 1){
+                            res.status(403).send("update impossible")
+                        } else {
+                            res.status(200).send("Avatar updated")
+                        }
+                    })
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    })
+
+        //Modify profil password
+        await router.put('/change-password', (req, res) => {
+            try {
+                const sql = `SELECT * FROM users WHERE email = ?`
+                con.query(sql, req.body.previous, (error, result) => {
+                    if (error) throw error
+                    if(result.length < 1) {
+                        res.status(403).send(`This profil can't be modify`)
+                    } else {
+                        bcrypt.hash(req.body.password, saltRounds).then(hash => {
+                            const sql2 = `UPDATE users SET ? WHERE ?`
+                            const obj1 = {
+                                password: hash
+                            }
+                            const obj2 = {
+                                email: req.body.previous
+                            }
+                            con.query(sql2, [obj1, obj2], (err, resu) => {
+                                if (err) throw err
+                                if(resu.affectedRows < 1){
+                                    res.status(403).send("update impossible")
+                                } else {
+                                    res.status(200).send("Password updated")
+                                }
+                            })
+                        })
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        })
 }
 
 module.exports = userRouter

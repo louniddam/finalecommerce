@@ -13,3 +13,7 @@
     align-items: center;
     background: url('../../../asset/fond-img.jpg') repeat;
 }
+
+#category-for-img img{
+    border: 2px dotted black;
+}

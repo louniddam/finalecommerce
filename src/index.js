@@ -42,11 +42,12 @@ let store = createStore(
 )
 
 const persistor = persistStore(store)
+console.log("Indexing")
 
 ReactDOM.render(
   <Provider store={store}>
      <PersistGate persistor={persistor}>
-      <Router forceRefresh={true}>
+      <Router>
         <Switch>
           <Route exact path="/" component={App} />
           <Route path="/sign-in" component={Signin} />

@@ -8,7 +8,6 @@
 }
 
 #user-infos{
-    height: 70%;
     width: 50%;
     border: 1px solid black;
     display: flex;
@@ -32,4 +31,19 @@
     border-radius: 50%;
     height: 100%;
     width: 40%;
+}
+
+.btn-profil{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn-profil button{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
 }

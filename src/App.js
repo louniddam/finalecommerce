@@ -7,6 +7,7 @@ import storeCategoryAction from './storeRedux/action/storeCategoryAction'
 import axios from 'axios'
 
 function App(props) {
+  console.log("App rerendered " + Date.now())
   
   async function fetchProducts() {
     let products = await axios.get('http://localhost:8000/get-products')

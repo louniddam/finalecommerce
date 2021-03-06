@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "../header/Header.css"
 import { signoutAction } from "../../../storeRedux/action/signoutAction"
 import CategoryList from '../../category/category-list/CategoryList'
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 
 const Header = (props) => {
 
@@ -21,27 +21,20 @@ const Header = (props) => {
         <header className="header-container">
             {token ?            
             <nav className="nav-menu">
-                <h1><a href="/">POP TA VIE</a></h1>
-                {isAdmin ?
+                <h1><Link to="/">Pop Ta Vie</Link></h1>
                     <ul className="nav-admin">
-                        <li><a href="/user-profil">Profil</a></li>
-                        <li><a href="/add-product">Ajout de produit</a></li>
-                        <li><a href="/" onClick={logOut}>Déconnexion</a></li> 
+                        <li><Link to="/user-profil">Profil</Link></li>
+                        {isAdmin ? <li><Link to="/add-product">Ajout de produit</Link></li>: <></>}
+                        {!isAdmin ? <li><Link to="/cart">Panier</Link></li> : <></> }
+                        <li><Link to="/" onClick={logOut}>Déconnexion</Link></li>
                     </ul>
-                    :
-                    <ul>
-                        <li><a href="/user-profil">Profil</a></li>
-                        <li><a href="/cart">Panier</a></li>
-                        <li><a href="/" onClick={logOut}>Déconnexion</a></li>
-                    </ul>
-                }
             </nav> 
             : 
             <nav className="nav-menu">
-                <h1><a href="/">POP TA VIE</a></h1>
+                <h1><Link to="/">POP Ta VIE</Link></h1>
                 <ul>
-                    <li><a href="/sign-in">Connexion</a></li>
-                    <li><a href="/sign-up">Inscription</a></li>
+                    <li><Link to="/sign-in">Connexion</Link></li>
+                    <li><Link to="/sign-up">Inscription</Link></li>
                 </ul>
             </nav> 
             }

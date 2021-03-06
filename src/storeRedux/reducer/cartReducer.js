@@ -61,6 +61,16 @@ const cartReducer = (state = initialState, action) => {
             ],
           };
 
+          case "MODIFY-TOTAL-PRICE":
+            console.log(action.payload);
+            let qty = action.payload.qty
+            let price = action.payload.price
+            let newtotalPrice = qty * price
+            return{
+              ...state,
+              totalPrice: state.totalPrice - newtotalPrice
+            }
+
           case "EMPTY-CART":
             return initialState
 

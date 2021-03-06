@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Header from '../../global/header/Header'
 import { useHistory } from "react-router-dom";
