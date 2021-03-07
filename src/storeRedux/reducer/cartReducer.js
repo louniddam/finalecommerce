@@ -51,7 +51,6 @@ const cartReducer = (state = initialState, action) => {
           let deletedProductIndex = state.productCart.findIndex(
             (product) => product.p.idproduct === action.payload
           );
-          console.log(deletedProductIndex);
     
           return {
             ...state,
@@ -62,7 +61,6 @@ const cartReducer = (state = initialState, action) => {
           };
 
           case "MODIFY-TOTAL-PRICE":
-            console.log(action.payload);
             let qty = action.payload.qty
             let price = action.payload.price
             let newtotalPrice = qty * price

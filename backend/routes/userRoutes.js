@@ -219,7 +219,7 @@ const userRouter = async function (router, con) {
                 //Change format date
                 let timeElapsed = Date.now();
                 let today = new Date(timeElapsed);
-                let date = today.toLocaleDateString();
+                let date = today.toUTCString();
                 let obj = {
                     total: req.body.totalPrice,
                     date: date,
@@ -247,9 +247,21 @@ const userRouter = async function (router, con) {
                             });
                             //Chaques index de tableau correspond à mes colones de ma table
                             con.query(`INSERT INTO object_command (id_product_affiliate, quantity, id_cart_affiliate
-                                ) VALUES ?`, [tableau, tableau[1], tableau[2]], (e, r) => {
+                                ) VALUES ?`, [tableau, tableau[1], tableau[2]], async (e, r) => {
                                     if (e) throw e
-                                    res.send(r)
+                                    if(r.affectedRows < 1){
+                                        res.status(403).send('An error occured')
+                                    } else {
+                                            // for(let i = 0; i < products; i++){
+                                            //     console.log("for");
+                                            // let changeQty = `UPDATE products SET quantity = ${products[i].qty} WHERE idproduct = ${products[i].idproduct}`
+                                            //     await con.query(changeQty, (er, re) => {
+                                            //         console.log("qty updated");
+                                            //     })
+                                            // console.log('ok');
+                                            // }
+                                    }
+                                res.status(200).send('ok')
                             })
                        }
                     }
@@ -273,6 +285,20 @@ const userRouter = async function (router, con) {
                 })
             } catch (error) {
                 
+            }
+        })
+
+        await router.put('/change-qty', (req, res) => {
+            try {
+                let products = req.body
+                console.log(products);
+                let changeQty = `UPDATE products SET quantity = (quantity) - (${products.qty}) WHERE idproduct = ${products.idproduct}`
+                con.query(changeQty, (error, result) => {
+                    if (error) throw error
+                    res.status(200).send("Quantity changed")
+                })
+            } catch (error) {
+                res.status(403).send("An error as occured")
             }
         })
 }

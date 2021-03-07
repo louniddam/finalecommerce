@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../cart/UserCart.css'
 import Header from '../../global/header/Header'
 import { connect } from "react-redux";
-// import emptyCartAction from '../../../storeRedux/action/emptyCartAction'
+import emptyCartAction from '../../../storeRedux/action/emptyCartAction'
 import deleteCartProductAction from '../../../storeRedux/action/deleteCartProductAction'
 import increaseQuantityAction from '../../../storeRedux/action/increaseQuantityAction'
 import modifyTotalPriceAction from '../../../storeRedux/action/modifyCartTotalPriceAction'
@@ -51,7 +51,15 @@ const UserCart = (props) => {
         } else {
             axios.post(`http://localhost:8000/order-cart`, object)
             .then(response => {
+                console.log(response);
+                for(let i = 0; i < tab.length; i++){
+                    axios.put(`http://localhost:8000/change-qty/`, tab[i])
+                    .then(response => {
+                        console.log(response);
+                    })
+                }
                 setMessageComand('Commande effectuée')
+                props.emptyCartAction()
                 setTimeout(() => {
                     props.history.push('/user-commands')
                 }, 1500);
@@ -87,7 +95,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    // emptyCartAction,
+    emptyCartAction,
     deleteCartProductAction,
     increaseQuantityAction,
     modifyTotalPriceAction,
