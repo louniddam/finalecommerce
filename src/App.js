@@ -21,9 +21,9 @@ import ProtectedAdminRoute from './components/global/protectRoutes/ProtectedAdmi
 import ModifyProduct from './components/product/modify-product/ModifyProduct';
 import FormModifyProfil from './components/user/modify-profil/FormModifyProfil';
 import UserCart from './components/user/cart/UserCart'
+import UserCommands from './components/user/user-commands/UserCommands'
 
 function App(props) {
-  console.log("App rerendered " + Date.now())
   
   async function fetchProducts() {
     let products = await axios.get('http://localhost:8000/get-products')
@@ -53,6 +53,7 @@ function App(props) {
         <Route path="/modify-product" component={ModifyProduct}/>
         <ProtectedUserRoute path="/modify-profil" component={FormModifyProfil}/>
         <ProtectedUserRoute path="/cart" component={UserCart}/>
+        <ProtectedUserRoute path="/user-commands" component={UserCommands}/>
       </Switch>
     </Router>
     </div>

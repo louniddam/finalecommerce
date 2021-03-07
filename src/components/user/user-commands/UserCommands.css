@@ -1,0 +1,13 @@
+.main-container-commands{
+    background: url('../../../asset/fond-img.jpg') repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.title-commands{
+    font-family: 'Amatic SC', cursive;
+    font-size: 3em;
+}

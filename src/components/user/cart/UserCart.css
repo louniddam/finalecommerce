@@ -4,9 +4,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 50vh;
+}
+
+#main-cart-container h1{
+    font-family: 'Amatic SC', cursive;
+    font-size: 3em;
 }
 
 #cart-container{
+    margin-top: 20px;
     width: 300px;
     display: flex;
     flex-direction: column;

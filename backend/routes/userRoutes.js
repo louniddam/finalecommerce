@@ -258,6 +258,23 @@ const userRouter = async function (router, con) {
                 console.log(error);
             }
         })
+
+        //Get commands
+        await router.get('/get-commands/:id', (req, res) => {
+            try {
+                let iduser = req.params.id
+                let obj ={
+                    user_affiliate: iduser
+                }
+                let sql = `SELECT cart.total, cart.date, object_command.quantity , products.name, products.image FROM cart INNER JOIN  object_command ON object_command.id_cart_affiliate = cart.idcart INNER JOIN products ON object_command.id_product_affiliate = products.idproduct WHERE cart.user_affiliate = ${iduser}`
+                con.query(sql, obj, (err, result) => {
+                    if (err) throw err
+                    res.status(200).send(result)
+                })
+            } catch (error) {
+                
+            }
+        })
 }
 
 module.exports = userRouter

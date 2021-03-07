@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../cart/UserCart.css'
 import Header from '../../global/header/Header'
 import { connect } from "react-redux";
@@ -13,7 +13,7 @@ const UserCart = (props) => {
     const cartProducts = props.cart.productCart
     const token = localStorage.getItem('token');
     const token_decoded = jwt.decode(token)
-    console.log(token_decoded);
+    const [messageComand, setMessageComand] = useState('')
 
     const deleteProduct = (product) => {
         props.deleteCartProductAction(product.p.idproduct)
@@ -34,36 +34,46 @@ const UserCart = (props) => {
     })
 
     const makeOrder = () => {
+        //Je crée un tableau d'objets de valeurs avec seulement l'id du produit et la qty
         let tab = []
         for(let i = 0; i < cartProducts.length; i++){
             tab.push({idproduct: cartProducts[i].p.idproduct, qty: cartProducts[i].qty})
         }
+
         let object = {
             iduser: token_decoded.id,
             products: tab,
             totalPrice: props.cart.totalPrice.toFixed(2),
         }
-        axios.post(`http://localhost:8000/order-cart`, object)
-        .then(response => {
-            console.log(response);
-        })
-        .catch(error => {
-            console.log(error);
-        })
+
+        if(tab.length < 1){
+            setMessageComand('Ajoutez des articles pour commander')
+        } else {
+            axios.post(`http://localhost:8000/order-cart`, object)
+            .then(response => {
+                setMessageComand('Commande effectuée')
+                setTimeout(() => {
+                    props.history.push('/user-commands')
+                }, 1500);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
     }
 
     return (
         <>
         <Header />
+        <h1 className='title-commands'>Votre panier</h1>
         <div id='main-cart-container'>
-            <h1>Votre panier</h1>
+            {messageComand}
             <div id='cart-container'>
                 {cartProducts.length < 1 ? "votre panier est vide" : listCartProduct}
                 <br></br>
                 <p>prix total: {props.cart.totalPrice.toFixed(2)} €</p>
                 <div className="cart-btn">
                     <button onClick={() => makeOrder()}>commander</button>
-                    {/* <button onClick={() => emptyCart()}>vider le panier</button> */}
                 </div>
                 <br></br>
             </div>
