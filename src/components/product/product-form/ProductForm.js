@@ -64,6 +64,7 @@ const ProductForm = () => {
             axios.post(`http://localhost:8000/create-product`, formValues)
             .then(resp => {
                 history.push('/')
+                window.location.reload()
             })
             .catch(err => {
                 console.log(err);

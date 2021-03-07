@@ -6,18 +6,20 @@ import { connect } from "react-redux";
 import deleteCartProductAction from '../../../storeRedux/action/deleteCartProductAction'
 import increaseQuantityAction from '../../../storeRedux/action/increaseQuantityAction'
 import modifyTotalPriceAction from '../../../storeRedux/action/modifyCartTotalPriceAction'
-
+import axios from 'axios';
+let jwt = require('jsonwebtoken')
 const UserCart = (props) => {
-    const cartProducts = props.cart.productCart
 
-    // const [totalPrice, setTotalPrice] = useState(props.cart.totalPrice)
+    const cartProducts = props.cart.productCart
+    const token = localStorage.getItem('token');
+    const token_decoded = jwt.decode(token)
+    console.log(token_decoded);
 
     const deleteProduct = (product) => {
         props.deleteCartProductAction(product.p.idproduct)
         props.increaseQuantityAction(product)
         props.modifyTotalPriceAction(product.p.price, product.qty)
     }
-
 
      const listCartProduct = cartProducts.map( product => {
         return(
@@ -31,6 +33,25 @@ const UserCart = (props) => {
         )
     })
 
+    const makeOrder = () => {
+        let tab = []
+        for(let i = 0; i < cartProducts.length; i++){
+            tab.push({idproduct: cartProducts[i].p.idproduct, qty: cartProducts[i].qty})
+        }
+        let object = {
+            iduser: token_decoded.id,
+            products: tab,
+            totalPrice: props.cart.totalPrice.toFixed(2),
+        }
+        axios.post(`http://localhost:8000/order-cart`, object)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     return (
         <>
         <Header />
@@ -39,9 +60,9 @@ const UserCart = (props) => {
             <div id='cart-container'>
                 {cartProducts.length < 1 ? "votre panier est vide" : listCartProduct}
                 <br></br>
-                <p>prix total: {props.cart.totalPrice} €</p>
+                <p>prix total: {props.cart.totalPrice.toFixed(2)} €</p>
                 <div className="cart-btn">
-                    <button>commander</button>
+                    <button onClick={() => makeOrder()}>commander</button>
                     {/* <button onClick={() => emptyCart()}>vider le panier</button> */}
                 </div>
                 <br></br>

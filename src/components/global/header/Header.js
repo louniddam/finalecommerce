@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import "../header/Header.css"
 import { signoutAction } from "../../../storeRedux/action/signoutAction"
+import emptyCartAction from "../../../storeRedux/action/emptyCartAction"
 import CategoryList from '../../category/category-list/CategoryList'
 import { useHistory, Link } from "react-router-dom"
 
@@ -13,6 +14,7 @@ const Header = (props) => {
 
     const logOut = () => {
         props.signoutAction()
+        props.emptyCartAction()
         history.push("/")
         localStorage.clear()
     }
@@ -44,7 +46,7 @@ const Header = (props) => {
     );
 };
 
-const mapDispatchToProps = { signoutAction }
+const mapDispatchToProps = { signoutAction, emptyCartAction }
 const mapStateToProps = (state) => ({
     signinStore: state.signin,
   });

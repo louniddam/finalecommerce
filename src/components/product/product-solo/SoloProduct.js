@@ -19,7 +19,6 @@ function SoloProduct(props) {
 
     const oldQty = product.quantity
     const history = useHistory()
-    let newQty = oldQty - cartQty
 
 
     //Get store informations
@@ -40,17 +39,10 @@ function SoloProduct(props) {
             if(props.cart.productCart[i].p.idproduct == urlId){
                 setCartQty(props.cart.productCart[i].qty)
             } else {
-                console.log('wtf');
             }
         }
     }
 
-
-    useEffect(() => {
-        soloProduct()
-        getCartQty()
-    },[urlId])
-    
     const addToCart = (product) => {
         props.addToCartAction(product)
         props.decreaseQuantityAction(product)
@@ -77,8 +69,11 @@ function SoloProduct(props) {
             console.log('something went wrong');
         })
     }
-
-    console.log(props);
+    
+    useEffect(() => {
+        soloProduct()
+        getCartQty()
+    },[urlId])
 
     return (
         <div className="solo-product">
@@ -93,10 +88,6 @@ function SoloProduct(props) {
                 <div className="info-product">
                     <p>{product.price}€</p>
                     <p>Quantité en stock: {product.quantity}</p>
-                    {/* <div id="quantity-product">
-                        <input id="typeinp" type="range" min="0" max={product.quantity} defaultValue="1" step="1" onChange={e => setProductQty(e.target.value)}/>
-                        <p>{productQty}</p>
-                    </div> */}
                     <div>
                         {isAdmin ?
                         <div className='adm-btn'>
@@ -107,7 +98,7 @@ function SoloProduct(props) {
                         <>
                         {token ?
                             <>
-                            {newQty < 1 ? 
+                            {product.quantity < 1 ? 
                                 "Ce produit n'est plus en stock" 
                                 : 
                                 <button className="add-cart" onClick={() => addToCart(product)}>Ajouter au panier</button>

@@ -14,26 +14,39 @@ const CategoryProduct = (props) => {
     const productsStored = props.products.products
 
     const getData = () => {
-        for(let i = 0; i < categories.length; i++){
-            if(categories[i].idcategory == idCategoryURL){
-                setCategory(categories[i])
+        if(products.length){
+            setProducts([])
+            for(let i = 0; i < categories.length; i++){
+                if(categories[i].idcategory == idCategoryURL){
+                    setCategory(categories[i])
+                }
             }
-        }
-        for(let i = 0; i < productsStored.length; i++){
-            if(productsStored[i].category_affiliate == idCategoryURL){
-                setProducts(products => [...products, productsStored[i]])
+            for(let i = 0; i < productsStored.length; i++){
+                if(productsStored[i].category_affiliate == idCategoryURL){
+                    setProducts(products => [...products, productsStored[i]])
+                }
+            }
+        } else {
+            for(let i = 0; i < categories.length; i++){
+                if(categories[i].idcategory == idCategoryURL){
+                    setCategory(categories[i])
+                }
+            }
+            for(let i = 0; i < productsStored.length; i++){
+                if(productsStored[i].category_affiliate == idCategoryURL){
+                    setProducts(products => [...products, productsStored[i]])
+                }
             }
         }
     }
-
 
     useEffect(() => {
         getData()
     }, [idCategoryURL])
 
-    const productsList = products.map(products => {
+    const productsList = products.map((products, key) => {
         return(
-            <div className="products-cards" key={products.idproduct}>
+            <div className="products-cards" key={key}>
                 <img src={products.image}/>
                 <p><span>{products.name}</span></p>
                 <p>prix: {products.price}€</p>

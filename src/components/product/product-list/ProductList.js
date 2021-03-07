@@ -24,6 +24,7 @@ const ProductList = (props) => {
 
     let lastProducts = allProducts.slice(-9)
 
+
      return(
          <>
          <br></br>

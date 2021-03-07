@@ -55,6 +55,7 @@ const userRouter = async function (router, con) {
                     name: result[0].name,
                     email: result[0].email,
                     img: result[0].image,
+                    id: result[0].iduser,
                     isAdmin: false,
                 }, 'secret')
                 bcrypt.compare(req.body.password, result[0].password).then(resp => {
@@ -206,6 +207,51 @@ const userRouter = async function (router, con) {
                                 }
                             })
                         })
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        })
+        //Maker an order
+        await router.post('/order-cart', (req, res) => {
+            try {
+                //Change format date
+                let timeElapsed = Date.now();
+                let today = new Date(timeElapsed);
+                let date = today.toLocaleDateString();
+                let obj = {
+                    total: req.body.totalPrice,
+                    date: date,
+                    user_affiliate: req.body.iduser
+                }
+                let sql = `INSERT INTO cart SET ? `
+                con.query(sql, obj, (error, result) => {
+                    if (error) throw error
+                    if(result.affectedRows < 1){
+                        res.status(403).send('An error occured')
+                    } else {
+                        //Product est un tableau d'objets que je dois transformer en tableau de tableaux
+                        // exemple: [{idproduct: 12, quantity: 1}, {idproduct: 13, quantity: 1}]
+                        let products = req.body.products
+                        let tableau = []
+                        //Ici on le transforme en tableau de tableaux pour respecter le format de la requete SQL
+                        //exemple: [ [12, 1], [13, 1] ]
+                        products.forEach(element => {
+                            tableau.push(Object.values(element));
+                        });
+                       if(tableau.length) {
+                        //Ici je rajoute l'ID du panier de ma requête précèdente avec result.insertId
+                            tableau.forEach((element) => {
+                                element.push(result.insertId);
+                            });
+                            //Chaques index de tableau correspond à mes colones de ma table
+                            con.query(`INSERT INTO object_command (id_product_affiliate, quantity, id_cart_affiliate
+                                ) VALUES ?`, [tableau, tableau[1], tableau[2]], (e, r) => {
+                                    if (e) throw e
+                                    res.send(r)
+                            })
+                       }
                     }
                 })
             } catch (error) {

@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS categories (idcategory INT PRIMARY KEY AUTO_INCREMENT
 
 CREATE TABLE IF NOT EXISTS products (idproduct INT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(50), title_desc VARCHAR(50), description TEXT(1000), image VARCHAR(500), price FLOAT, quantity INT, category_afiiliate INT, FOREIGN KEY (category_afiiliate) REFERENCES categories(idcategory));
 
-CREATE TABLE IF NOT EXISTS cart (idcart INT PRIMARY KEY AUTO_INCREMENT NOT NULL, total FLOAT, date DATE,user_affiliate INT, FOREIGN KEY (user_affiliate) REFERENCES users(iduser));
+CREATE TABLE IF NOT EXISTS cart (idcart INT PRIMARY KEY AUTO_INCREMENT NOT NULL, total VARCHAR(6), date VARCHAR(10),user_affiliate INT, FOREIGN KEY (user_affiliate) REFERENCES users(iduser));
 
 CREATE TABLE IF NOT EXISTS object_command (idobject INT PRIMARY KEY AUTO_INCREMENT NOT NULL, quantity INT,id_product_affiliate INT, id_cart_affiliate INT, FOREIGN KEY (id_product_affiliate) REFERENCES products(idproduct), FOREIGN KEY (id_cart_affiliate) REFERENCES cart(idcart));
 `)
