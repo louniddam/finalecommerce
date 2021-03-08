@@ -1,0 +1,13 @@
+.mentions-container{
+    text-align: center;
+    width: 100%;
+}
+
+.mentions-container div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}

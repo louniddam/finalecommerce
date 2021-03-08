@@ -4,6 +4,7 @@ import Header from '../../global/header/Header'
 import '../product-form/ProductForm.css'
 import { useHistory } from 'react-router-dom'
 import { createProductSchema } from '../../../Validations/ProductForm'
+import Footer from '../../global/footer/Footer'
 
 async function fetchCategories(setCategory_data){
     const result = await axios.get(`http://localhost:8000/categories`)
@@ -122,6 +123,7 @@ const ProductForm = () => {
                 <br></br>
             </div>
         </div>
+        <Footer />
         </>
     )
 }

@@ -1,0 +1,16 @@
+.page-error-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.img-error{
+   height: auto;
+   width: 30%;
+}
+
+.link-error{
+    color: black;
+    cursor: pointer;
+}

@@ -10,6 +10,7 @@ import { modifyEmailSchema } from '../../../Validations/modifyUser/ModifyEmail'
 import { modifyPasswordSchema } from '../../../Validations/modifyUser/ModifyPassword'
 import { modifyImageSchema } from '../../../Validations/modifyUser/ModifyImage'
 import { connect } from 'react-redux';
+import Footer from '../../global/footer/Footer'
 const jwt = require('jsonwebtoken')
 
 
@@ -180,6 +181,7 @@ const FormModifyProfil = (props) => {
                 <br></br>
             </div>
         </div>
+        <Footer />
         </>
     )
 }

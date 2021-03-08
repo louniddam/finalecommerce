@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import '../modify-product/ModifyProduct.css'
 import { createProductSchema } from '../../../Validations/ProductForm'
+import Footer from '../../global/footer/Footer'
 
 
 async function fetchCategories(setCategory_data){
@@ -136,6 +137,7 @@ const ModifyProduct = (props) => {
             </div>
         </div>
         <br></br>
+        <Footer />
         </>
     )
 }

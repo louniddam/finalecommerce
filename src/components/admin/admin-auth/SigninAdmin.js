@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { useHistory } from "react-router-dom";
 import signinAdminAction from '../../../storeRedux/action/signinAdminAction'
 import axios from 'axios'
+import Footer from '../../global/footer/Footer'
 require("dotenv").config();
 
 
@@ -55,6 +56,7 @@ const SigninAdmin = (props) => {
                 <button type="submit">connexion</button>
             </form>
         </div>
+        <Footer />
         </>
     )
 }

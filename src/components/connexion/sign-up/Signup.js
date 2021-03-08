@@ -4,6 +4,7 @@ import Header from '../../global/header/Header'
 import '../sign-up/Signup.css'
 import { useHistory } from 'react-router-dom'
 import { userSignupSchema } from '../../../Validations/UserSignup'
+import Footer from '../../global/footer/Footer'
 
 const Signup = () => {
     const [pseudo, setPseudo] = useState('')
@@ -81,6 +82,7 @@ const Signup = () => {
             </form>
             <br></br>
         </div>
+        <Footer />
     </>
     )
 }

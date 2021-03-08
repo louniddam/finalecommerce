@@ -7,6 +7,7 @@ import deleteCartProductAction from '../../../storeRedux/action/deleteCartProduc
 import increaseQuantityAction from '../../../storeRedux/action/increaseQuantityAction'
 import modifyTotalPriceAction from '../../../storeRedux/action/modifyCartTotalPriceAction'
 import axios from 'axios';
+import Footer from '../../global/footer/Footer'
 let jwt = require('jsonwebtoken')
 const UserCart = (props) => {
 
@@ -86,6 +87,7 @@ const UserCart = (props) => {
                 <br></br>
             </div>
         </div>
+        <Footer />
         </>
     )
 }

@@ -22,6 +22,8 @@ import ModifyProduct from './components/product/modify-product/ModifyProduct';
 import FormModifyProfil from './components/user/modify-profil/FormModifyProfil';
 import UserCart from './components/user/cart/UserCart'
 import UserCommands from './components/user/user-commands/UserCommands'
+import PageError from './components/global/page404/PageError'
+import Mentions from './components/global/mentions legales/Mentions'
 
 function App(props) {
   
@@ -49,11 +51,13 @@ function App(props) {
         <Route path="/allproducts" component={ProductList} />
         <Route path="/single-product" component={SoloProduct} />
         <Route path="/category-product" component={CategoryProduct} />
+        <Route path="/mentions" component={Mentions} />
         <ProtectedUserRoute path="/user-profil" component={UserProfil} />
         <Route path="/modify-product" component={ModifyProduct}/>
         <ProtectedUserRoute path="/modify-profil" component={FormModifyProfil}/>
         <ProtectedUserRoute path="/cart" component={UserCart}/>
         <ProtectedUserRoute path="/user-commands" component={UserCommands}/>
+        <Route path="*" component={PageError}/>
       </Switch>
     </Router>
     </div>

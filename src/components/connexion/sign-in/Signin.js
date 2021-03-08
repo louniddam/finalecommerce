@@ -7,6 +7,7 @@ import Header from '../../global/header/Header'
 import { useHistory } from "react-router-dom";
 import '../sign-in/Signin.css'
 import { userSigninSchema } from '../../../Validations/UserSignin'
+import Footer from '../../global/footer/Footer'
 
 
 const Signin = (props) => {
@@ -66,6 +67,7 @@ const Signin = (props) => {
             </form>
             <br></br>
         </div>
+        <Footer />
         </>
     )
 }

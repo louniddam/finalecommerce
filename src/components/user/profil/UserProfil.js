@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Header from '../../global/header/Header'
 import '../profil/UserProfil.css'
 import { useHistory } from "react-router-dom";
+import Footer from '../../global/footer/Footer'
 
 const UserProfil = (props) => {
 
@@ -29,6 +30,7 @@ const UserProfil = (props) => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }
