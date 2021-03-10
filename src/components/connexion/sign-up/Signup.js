@@ -66,7 +66,7 @@ const Signup = () => {
                 </div>
                 <div>
                     <label>Mot de passe:</label>
-                    <input type="password" id="signPwd" name="password" placeholder="4-10 caractères" required onChange={e => setPassword(e.target.value)}/>
+                    <input type="password" id="signPwd" name="password" placeholder="8 caractères min" required onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div>
                     <label>Confirmation:</label>

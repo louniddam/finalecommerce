@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './SoloProduct.css'
 import Header from '../../global/header/Header'
+import Footer from '../../global/footer/Footer'
 import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import removeProductAction from '../../../storeRedux/action/removeProductAction'

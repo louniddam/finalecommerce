@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../global/header/Header'
+import Footer from '../../global/footer/Footer'
 import { useHistory } from "react-router-dom";
 import '../category-product/CategoryProducts.css'
 import { connect } from "react-redux";
@@ -70,7 +71,7 @@ const CategoryProduct = (props) => {
             <div className="products-container-2">
                 {productsList}
             </div>
-            <br></br>
+            <Footer />
         </div>
     )
 }

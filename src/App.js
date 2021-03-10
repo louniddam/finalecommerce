@@ -24,6 +24,7 @@ import UserCart from './components/user/cart/UserCart'
 import UserCommands from './components/user/user-commands/UserCommands'
 import PageError from './components/global/page404/PageError'
 import Mentions from './components/global/mentions legales/Mentions'
+import CommandDetails from './components/user/command-details/CommandDetails'
 
 function App(props) {
   
@@ -57,6 +58,7 @@ function App(props) {
         <ProtectedUserRoute path="/modify-profil" component={FormModifyProfil}/>
         <ProtectedUserRoute path="/cart" component={UserCart}/>
         <ProtectedUserRoute path="/user-commands" component={UserCommands}/>
+        <ProtectedUserRoute path="/command-details" component={CommandDetails}/>
         <Route path="*" component={PageError}/>
       </Switch>
     </Router>

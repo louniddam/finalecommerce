@@ -35,6 +35,7 @@ const Signin = (props) => {
             })
             .catch(error => {
                 setClassName('is-wrong')
+                setData("Votre mot de passe ou email est invalide.")
             })
         } else {
             setData("Les champs ne sont pas valides")
@@ -55,11 +56,11 @@ const Signin = (props) => {
             <form  onSubmit={handleSubmit}>
                 <div className="signin-email">
                     <label>Votre email</label>
-                    <input type="email" name="email" id="email"  className={className} required onChange={e => setEmail(e.target.value)}/>
+                    <input type="email" name="email" id="email" placeholder="email@gmail.com" className={className} required onChange={e => setEmail(e.target.value)}/>
                 </div>
                 <div className="signin-pwd">
                     <label>Votre mot de passe</label>
-                    <input type="password" name="password" id="password" className={className} required onChange={e => setPassword(e.target.value)}/>
+                    <input type="password" name="password" id="password" placeholder="8 caractères min" className={className} required onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div className="signin-btn">
                     <button onClick={formSubmit}>connexion</button>

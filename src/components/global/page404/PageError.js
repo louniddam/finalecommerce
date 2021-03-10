@@ -8,7 +8,7 @@ const PageError = (props) => {
             <h1>ERREUR 404 PAGE INTROUVABLE</h1>
             <img className="img-error" src="https://figurinepop.com/public/2021/03/50wanda1.jpg" />
             <br></br>
-            <h2> <Link className='link-error' onClick={() => props.history.push('/')}>Retour à l'accueil</Link></h2>
+            <h2> <Link to='/' className='link-error'>Retour à l'accueil</Link></h2>
         </div>
     )
 }

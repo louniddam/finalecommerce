@@ -170,7 +170,7 @@ const FormModifyProfil = (props) => {
                     </div>
                     <div>
                         <label className="reduce">Nouveau mot de passe</label>
-                        <input type="password" name="name" id="pwdModify" placeholder="4-10 caractères" onChange={ e => setPassword(e.target.value)}/>
+                        <input type="password" name="name" id="pwdModify" placeholder="8 caractères min" onChange={ e => setPassword(e.target.value)}/>
                     </div>
                     <div>
                         <label className="reduce">Confirmation mot de passe</label>

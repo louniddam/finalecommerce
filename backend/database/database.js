@@ -33,7 +33,6 @@ con.query(sql_admin, (err, result) => {
     } else {
         bcrypt.hash(pwd, saltRounds).then( hash => {
             const sql = `INSERT IGNORE INTO admin (name, email, password) VALUES ('${name}', '${email}','${hash}')`
-
             con.query(sql, (err, res) => {
                 if (err) throw err
             })

@@ -179,6 +179,43 @@ const productRouter = async function (router, con) {
             console.log(error);
         }
     })
+
+        //Lower qty after command
+        await router.put('/change-qty', (req, res) => {
+            try {
+                let products = req.body
+                let changeQty = `UPDATE products SET quantity = (quantity) - (${products.qty}) WHERE idproduct = ${products.idproduct}`
+                con.query(changeQty, (error, result) => {
+                    if (error) throw error
+                    res.status(200).send("Quantity changed")
+                })
+            } catch (error) {
+                res.status(403).send("An error as occured")
+            }
+        })
+
+    //----GET COMMAND DETAILS
+    await router.get(`/command-details/:id`, (req, res) => {
+        try {
+
+            let sql = 
+            `SELECT object_command.quantity, products.name, products.price, products.image
+             FROM object_command
+             INNER JOIN products
+             ON products.idproduct = object_command.id_product_affiliate
+             WHERE object_command.id_cart_affiliate = ${req.params.id}`
+            con.query(sql, (error, result) => {
+                if (error) throw error
+                if(result.length){
+                    res.status(200).send(result)
+                }
+            })
+            
+        } catch (error) {
+            console.log(error);
+            res.status(403).send(`Can't get the details`)
+        }
+    })
 }
 
 module.exports = productRouter

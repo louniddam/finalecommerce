@@ -24,12 +24,12 @@ const Header = (props) => {
             {token ?            
             <nav className="nav-menu">
                 <h1><Link to="/">Pop Ta Vie</Link></h1>
-                    <ul className="nav-admin">
-                        <li><Link to="/user-profil">Profil</Link></li>
-                        {isAdmin ? <li><Link to="/add-product">Ajout de produit</Link></li>: <></>}
-                        {!isAdmin ? <li><Link to="/cart">Panier</Link></li> : <></> }
-                        <li><Link to="/" onClick={logOut}>Déconnexion</Link></li>
-                    </ul>
+                <ul className="nav-admin">
+                    <li><Link to="/user-profil">Profil</Link></li>
+                    {isAdmin ? <li><Link to="/add-product">Ajout de produit</Link></li>: null}
+                    {!isAdmin ? <li><Link to="/cart">Panier</Link></li> : null }
+                    <li><Link to="/" onClick={logOut}>Déconnexion</Link></li>
+                </ul>
             </nav> 
             : 
             <nav className="nav-menu">

@@ -60,10 +60,10 @@ const UserCart = (props) => {
                     })
                 }
                 setMessageComand('Commande effectuée')
-                props.emptyCartAction()
                 setTimeout(() => {
                     props.history.push('/user-commands')
                 }, 1500);
+                props.emptyCartAction()
             })
             .catch(error => {
                 console.log(error);

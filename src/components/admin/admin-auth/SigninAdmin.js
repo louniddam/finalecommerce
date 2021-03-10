@@ -13,7 +13,7 @@ require("dotenv").config();
 const SigninAdmin = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [incorrect, setIncorrect] = useState()
+    const [incorrect, setIncorrect] = useState('')
     const history = useHistory()
 
     const formSubmit = (e) => {
@@ -36,7 +36,7 @@ const SigninAdmin = (props) => {
             }
         })
         .catch((error) => {
-            console.log(error);
+            setIncorrect('Indentifiants incorrects')
         })
     }
     return(
@@ -44,6 +44,7 @@ const SigninAdmin = (props) => {
         <Header/>
         <div className="container-admin-auth">
             <h1>Connexion</h1>
+            <p className='error-message'>{incorrect}</p>
             <form onSubmit={formSubmit}>
                 <div>
                     <label>Email:</label>

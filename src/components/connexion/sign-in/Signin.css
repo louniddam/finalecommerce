@@ -1,6 +1,6 @@
 .signin-container {
     background: url('../../../asset/fond-img.jpg') repeat;
-    opacity:0.75;
+    opacity: 0.75;
     /* height: 70vh; */
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
     align-items: center;
 }
 
-.signin-container h1{
+.signin-container h1 {
     font-family: 'Amatic SC', cursive;
     font-size: 3em;
 }
@@ -36,7 +36,7 @@
 
 .signin-container form div input {
     border-radius: 5px;
-    width: 60%;
+    width: 80%;
 }
 
 .signin-container form div label {
@@ -45,17 +45,17 @@
     font-weight: bold;
 }
 
-.signin-container form div button{
+.signin-container form div button {
     background-color: white;
     border: 1px solid black;
     font-family: 'Amatic SC', cursive;
     height: auto;
     font-size: 1em;
-    outline:none;
+    outline: none;
     margin-top: 10px;
 }
 
-.signin-container form div button:hover{
+.signin-container form div button:hover {
     background-color: black;
     color: white;
     border: 1px solid black;
@@ -65,13 +65,13 @@
     transition: 0.6s;
 }
 
-.error-message{
+.error-message {
     color: red;
     font-family: 'Amatic SC', cursive;
     font-size: 1.5em;
 }
 
-.is-wrong{
+.is-wrong {
     border: 1px solid red;
 }
 
@@ -82,8 +82,8 @@
         width: 300px;
     }
 
-    .signin-container h1{
+    .signin-container h1 {
         font-size: 2em;
     }
 
-  }
+}

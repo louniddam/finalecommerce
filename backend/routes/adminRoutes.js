@@ -10,10 +10,10 @@ const adminRouter = async function (router, con) {
             let pwd = req.body.pwd
 
             let sql = `SELECT * FROM admin WHERE email = ?`
-            con.query(sql, email,(error, result) => {
+            con.query(sql, email, (error, result) => {
                 if (error) throw error
                 if (!result.length) {
-                    res.status(200).send("Email or password incorrect")
+                    res.status(403).send("Email or password incorrect")
                 } else {
                     let token = jwt.sign({
                         name: result[0].name,
@@ -27,16 +27,15 @@ const adminRouter = async function (router, con) {
                                 auth: true
                             })
                         } else {
-                            res.status(200).send("Email or password incorrect")
+                            res.status(403).send("Email or password incorrect")
                         }
                     })
                 }
             })
         } catch (error) {
-            res.status(203).send(error)
+            res.status(403).send(error)
         }
     })
-
 }
 
 module.exports = adminRouter
